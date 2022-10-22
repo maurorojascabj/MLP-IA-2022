@@ -1,4 +1,4 @@
-from Core.modelos.capa import capa
+from core.modelos.capa import capa
 
 
 class red():
@@ -16,3 +16,16 @@ class red():
         #tratar capa de salida
         for i in range(1, cant_capas - 1):
             self.capas.append(capa((cant_neuronas/cant_capas), (cant_neuronas/cant_capas), func_activacion))
+
+    def entrenar_con_un_patron (self, vector_patron):
+        #mandar el patron a capa de entrada
+        pass  
+
+
+    # realiza una corrida (epoca) de entrenamiento con 1 dataset a especificar
+    def entrenar_red (self, archivo_dataset):  
+        #  for cada renglon(patron) del archivo entrenar_con_un_patron()   
+        pass
+
+    def calcular_error_global():
+        pass

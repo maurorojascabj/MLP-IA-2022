@@ -1,4 +1,4 @@
-
+from core.modelos.neurona import neurona
 
 class capa():
     def __init__ (self , cant_neuronas, capa_anterior, func_activacion, tipo):
@@ -9,6 +9,7 @@ class capa():
         
         self.neuronas = []
         for i in range(cant_neuronas):
+            nueva_neurona = neurona(func_activacion)
             self.neuronas.append(nueva_neurona)
             #for each neurona de la capa anterior voy acumulando Net
             #despues asigno la acumulacion a nueva_neurona.net

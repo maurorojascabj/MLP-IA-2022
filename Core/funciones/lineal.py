@@ -1,4 +1,4 @@
-from Core.funciones.interfaz_funcion import funcion_abstracta
+from core.funciones.interfaz_funcion import funcion_abstracta
 
 
 class lineal(funcion_abstracta):
