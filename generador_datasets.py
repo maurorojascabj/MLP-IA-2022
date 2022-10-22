@@ -25,11 +25,11 @@ def reemplazarCaracter(patron, posicion):
         cadena= patron[:nuevaPosic]+"0"+patron[nuevaPosic+1:]  #se reemplaza el caracter 1 por 0
     return cadena
 
-def distorsionarEjemplo(patron):
+def distorsionarEjemplo(patron, porcMin, porcMax):
     j=0
     nuevoPatron=patron
     distorsiones=list()  #lista que contiene posiciones ya distorsionadas (para no distorsionar una misma posicion varias veces) 
-    porcDistorsion=random.randint(1,30)  #porcentaje de distorsion del ejemplo
+    porcDistorsion=random.randint(porcMin, porcMax)  #porcentaje de distorsion del ejemplo
     print(porcDistorsion)
     while j < porcDistorsion:
         posicADistorsionar=random.randint(1,100)
@@ -61,25 +61,34 @@ def generarDataset(archivo,total):
     with open(archivo, mode="a") as file1:
         #escribir ejemplos sin distorsion
         while i < cantPorLetraNoDistors:
-            file1.write(patronB+" 00 b\n")
-            file1.write(patronC+" 00 d\n")
+            file1.write(patronB+" 00 100\n")
+            file1.write(patronC+" 00 010\n")
             i+=1
 
         i=0
         while i < (cantNoDistors-cantPorLetraNoDistors*2):
-            file1.write(patronF+" 00 f\n")
+            file1.write(patronF+" 00 001\n")
             i+=1
 
         #escribir ejemplos con distorsion
         i=0
-        while i < cantPorLetraDistors:
-            file1.write(distorsionarEjemplo(patronB)+" b " +"\n")
-            file1.write(distorsionarEjemplo(patronC)+" c " +"\n")
-            file1.write(distorsionarEjemplo(patronF)+" f " +"\n")
+        while i < (cantPorLetraDistors//3):
+            file1.write(distorsionarEjemplo(patronB,1,10)+" 100 " +"\n")
+            file1.write(distorsionarEjemplo(patronC,1,10)+" 010 " +"\n")
+            file1.write(distorsionarEjemplo(patronF,1,10)+" 001 " +"\n")
+
+            file1.write(distorsionarEjemplo(patronB,11,20)+" 100 " +"\n")
+            file1.write(distorsionarEjemplo(patronC,11,20)+" 010 " +"\n")
+            file1.write(distorsionarEjemplo(patronF,11,20)+" 001 " +"\n")
+
+            file1.write(distorsionarEjemplo(patronB,21,30)+" 100 " +"\n")
+            file1.write(distorsionarEjemplo(patronC,21,30)+" 010 " +"\n")
+            file1.write(distorsionarEjemplo(patronF,21,30)+" 001 " +"\n")
+
             i+=1
 
  
-nDataset=100
+nDataset=1000
 archivo="c:/Users/USER/Documents/ISI 5TO/INTELIGENCIA ARTIFICIAL/TPI/prueba1.txt"
 generarDataset(archivo, nDataset)
  
