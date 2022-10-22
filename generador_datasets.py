@@ -18,7 +18,6 @@ def posicYaDistors(posicADistorsionar,lista):  #se recorre lista de posiciones d
 def reemplazarCaracter(patron, posicion):
     posicion-=1 #para ir de 1 a 100 en lugar de 0 a 99
     nuevaPosic=posicion+ (posicion//10)  # posicion aleatoria a distorsionar considerando espacios en blanco del patron
-    print("posic: "+str(nuevaPosic))
     if (patron[nuevaPosic]=="0"):
         cadena= patron[:nuevaPosic]+"1"+patron[nuevaPosic+1:]  #se reemplaza el caracter 0 por 1 
     else:
@@ -30,7 +29,7 @@ def distorsionarEjemplo(patron, porcMin, porcMax):
     nuevoPatron=patron
     distorsiones=list()  #lista que contiene posiciones ya distorsionadas (para no distorsionar una misma posicion varias veces) 
     porcDistorsion=random.randint(porcMin, porcMax)  #porcentaje de distorsion del ejemplo
-    print(porcDistorsion)
+    #print(porcDistorsion)
     while j < porcDistorsion:
         posicADistorsionar=random.randint(1,100)
         while posicYaDistors(posicADistorsionar,distorsiones): #si la posicion random obtenida ya esta distorsionada, se busca otra posicion para distorsionar
@@ -38,8 +37,8 @@ def distorsionarEjemplo(patron, porcMin, porcMax):
         nuevoPatron=reemplazarCaracter(nuevoPatron,posicADistorsionar)
         distorsiones.append(posicADistorsionar)
         distorsiones.sort()
-        print(distorsiones)
         j+=1
+    #print(distorsiones)
     distorsiones.clear()
     if(len(str(porcDistorsion))==2):
         nuevoPatron=nuevoPatron + " " + str(porcDistorsion)
