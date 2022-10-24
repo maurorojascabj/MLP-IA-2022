@@ -1,7 +1,7 @@
 from random import random
 
 
-class neurona():
+class Neurona():
     def __init__(self, funcion_activacion, cant_neuronas_capa_anterior):
         self._funcion_activacion = funcion_activacion
         self.vector_w = [] #vector de n pesos asociados a las n entradas (de capa anterior) de la neurona
