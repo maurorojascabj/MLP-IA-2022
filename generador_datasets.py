@@ -63,11 +63,12 @@ def generarDataset(archivo,total):
         while i < cantPorLetraNoDistors:
             file1.write(patronB+" 00 100\n")
             file1.write(patronD+" 00 010\n")
+            file1.write(patronF+" 00 001\n")
             i+=1
 
         i=0
-        while i < (cantNoDistors-cantPorLetraNoDistors*2):
-            file1.write(patronF+" 00 001\n")
+        while i < (cantNoDistors-cantPorLetraNoDistors*3):
+            file1.write(random.choice([patronB,patronD,patronF])+" 00 001\n")
             i+=1
 
         #escribir ejemplos con distorsion
@@ -89,6 +90,7 @@ def generarDataset(archivo,total):
 
  
 nDataset=1000
-archivo="c:/Users/USER/Documents/ISI 5TO/INTELIGENCIA ARTIFICIAL/TPI/prueba1.txt"
+archivo="c:/Users/USER/Documents/ISI 5TO/INTELIGENCIA ARTIFICIAL/TPI/dataset1000.txt"
 generarDataset(archivo, nDataset)
+print(len(archivo))
  
