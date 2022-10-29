@@ -5,7 +5,7 @@ def diferenciaEntrePatrones(patron,patronDistorsionado):  #para ver si se distor
     j=0
     while j < len(patron):
         if(patron[j]!=patronDistorsionado[j]):
-            lista2.append((j+1-(j//10)))
+            lista2.append(j+1)
         j+=1
     return lista2
 
@@ -17,11 +17,11 @@ def posicYaDistors(posicADistorsionar,lista):  #se recorre lista de posiciones d
 
 def reemplazarCaracter(patron, posicion):
     posicion-=1 #para ir de 1 a 100 en lugar de 0 a 99
-    nuevaPosic=posicion+ (posicion//10)  # posicion aleatoria a distorsionar considerando espacios en blanco del patron
-    if (patron[nuevaPosic]=="0"):
-        cadena= patron[:nuevaPosic]+"1"+patron[nuevaPosic+1:]  #se reemplaza el caracter 0 por 1 
+   # nuevaPosic=posicion+ (posicion//10)  # posicion aleatoria a distorsionar considerando espacios en blanco del patron
+    if (patron[posicion]=="0"):
+        cadena= patron[:posicion]+"1"+patron[posicion+1:]  #se reemplaza el caracter 0 por 1 
     else:
-        cadena= patron[:nuevaPosic]+"0"+patron[nuevaPosic+1:]  #se reemplaza el caracter 1 por 0
+        cadena= patron[:posicion]+"0"+patron[posicion+1:]  #se reemplaza el caracter 1 por 0
     return cadena
 
 def distorsionarEjemplo(patron, porcMin, porcMax):
@@ -29,7 +29,7 @@ def distorsionarEjemplo(patron, porcMin, porcMax):
     nuevoPatron=patron
     distorsiones=list()  #lista que contiene posiciones ya distorsionadas (para no distorsionar una misma posicion varias veces) 
     porcDistorsion=random.randint(porcMin, porcMax)  #porcentaje de distorsion del ejemplo
-    #print(porcDistorsion)
+    
     while j < porcDistorsion:
         posicADistorsionar=random.randint(1,100)
         while posicYaDistors(posicADistorsionar,distorsiones): #si la posicion random obtenida ya esta distorsionada, se busca otra posicion para distorsionar
@@ -38,7 +38,8 @@ def distorsionarEjemplo(patron, porcMin, porcMax):
         distorsiones.append(posicADistorsionar)
         distorsiones.sort()
         j+=1
-    #print(distorsiones)
+    print("posic"+str(porcDistorsion))
+    print(distorsiones)
     distorsiones.clear()
     if(len(str(porcDistorsion))==2):
         nuevoPatron=nuevoPatron + " " + str(porcDistorsion)
@@ -48,9 +49,9 @@ def distorsionarEjemplo(patron, porcMin, porcMax):
 
 
 def generarDataset(archivo,total):
-    patronB="0000000000 0010000000 0010000000 0010000000 0011111000 0010000100 0010000100 0010000100 0011111000 0000000000"
-    patronC="0000000000 0000000100 0000000100 0000000100 0001111100 0010000100 0010000100 0010000100 0001111100 0000000000"
-    patronF="0000000000 0000011000 0000100100 0000100000 0011111000 0000100000 0000100000 0000100000 0000100000 0000000000"
+    patronB="0000000000001000000000100000000010000000001111100000100001000010000100001000010000111110000000000000"
+    patronD="0000000000000000010000000001000000000100000111110000100001000010000100001000010000011111000000000000"
+    patronF="0000000000000001100000001001000000100000001111100000001000000000100000000010000000001000000000000000"
     cantNoDistors=total // 10    # 10 % de ejemplos no deben tener distorsion
     cantPorLetraNoDistors=round(cantNoDistors/3)  #cantidad de ejemplos no distorsionados por letra
     cantPorLetraDistors=(total-cantNoDistors)//3  #cantidad de ejemplos distorsionados por letra
@@ -61,7 +62,7 @@ def generarDataset(archivo,total):
         #escribir ejemplos sin distorsion
         while i < cantPorLetraNoDistors:
             file1.write(patronB+" 00 100\n")
-            file1.write(patronC+" 00 010\n")
+            file1.write(patronD+" 00 010\n")
             i+=1
 
         i=0
@@ -73,15 +74,15 @@ def generarDataset(archivo,total):
         i=0
         while i < (cantPorLetraDistors//3):
             file1.write(distorsionarEjemplo(patronB,1,10)+" 100 " +"\n")
-            file1.write(distorsionarEjemplo(patronC,1,10)+" 010 " +"\n")
+            file1.write(distorsionarEjemplo(patronD,1,10)+" 010 " +"\n")
             file1.write(distorsionarEjemplo(patronF,1,10)+" 001 " +"\n")
 
             file1.write(distorsionarEjemplo(patronB,11,20)+" 100 " +"\n")
-            file1.write(distorsionarEjemplo(patronC,11,20)+" 010 " +"\n")
+            file1.write(distorsionarEjemplo(patronD,11,20)+" 010 " +"\n")          
             file1.write(distorsionarEjemplo(patronF,11,20)+" 001 " +"\n")
 
-            file1.write(distorsionarEjemplo(patronB,21,30)+" 100 " +"\n")
-            file1.write(distorsionarEjemplo(patronC,21,30)+" 010 " +"\n")
+            file1.write(distorsionarEjemplo(patronB,21,30)+" 100 " +"\n")          
+            file1.write(distorsionarEjemplo(patronD,21,30)+" 010 " +"\n")
             file1.write(distorsionarEjemplo(patronF,21,30)+" 001 " +"\n")
 
             i+=1
