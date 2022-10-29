@@ -27,13 +27,15 @@ funcion_lineal = lineal()
 #tratar archivo: separar en 3 datasets
 #llenar las 3 listas con los correspondientes patrones
 
-red = Red(,funcion_sigmoidal,funcion_lineal,,)
+red = Red(3,funcion_sigmoidal, funcion_sigmoidal, 0.8, 0.2)
+
+
 
 # prueba con porcentaje_validacion_1
-red.entrenar_red(dataset_entrenamiento_1, dataset_validacion_1)
+#red.entrenar_red(dataset_entrenamiento_1, dataset_validacion_1)
 
 # prueba con porcentaje_validacion_2
-red.entrenar_red(dataset_entrenamiento_1, dataset_validacion_1)
+#red.entrenar_red(dataset_entrenamiento_1, dataset_validacion_1)
 
 # prueba con porcentaje_validacion_3
 

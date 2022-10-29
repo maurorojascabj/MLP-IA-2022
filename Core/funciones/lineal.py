@@ -1,6 +1,7 @@
-from core.funciones.interfaz_funcion import funcion_abstracta
+
+from core.funciones.interfaz_funcion import interfaz_funcion
 
 
-class lineal(funcion_abstracta):
+class lineal(interfaz_funcion):
     def calcular(self,net):
         return 2

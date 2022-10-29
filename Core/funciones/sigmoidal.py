@@ -1,6 +1,8 @@
-from core.funciones.interfaz_funcion import funcion_abstracta
 
 
-class sigmoidal(funcion_abstracta): 
+from core.funciones.interfaz_funcion import interfaz_funcion
+
+
+class sigmoidal(interfaz_funcion): 
     def calcular(self,net):
         return 2   
