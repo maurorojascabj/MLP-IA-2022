@@ -6,9 +6,9 @@ class Neurona():
         self._funcion_salida = funcion_salida
 
         self.vector_w = [] #vector de n pesos asociados a las n entradas (de capa anterior) de la neurona        
-        self.umbral_w_0 = 0        
-        self.valor_estado_activacion = self.calcular_estado_activacion()
-        self.inicializar_pesos(cant_neuronas_capa_anterior)
+        self.umbral_w_0 = random       
+        self.valor_estado_activacion = 1 #self.calcular_estado_activacion()
+        self.inicializar_pesos(cant_neuronas_capa_anterior)#en capa de entraada llega un 0
 
     #Yn f(Net)
     #trata el string de entrada, donde cada dígito es la salida de una neurona de la capa anterior (en capa de entrada no, es una de las 100 entradas)

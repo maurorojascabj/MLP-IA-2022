@@ -4,7 +4,7 @@ from core.modelos.Capa import Capa
 
 class Red():
     def __init__ (self, capas_ocultas, func_activacion_salida, func_activacion, coef_aprendizaje, term_momento):
-        self._capas_ocultas =  capas_ocultas #topologia de las capas ocultas   
+        self._capas_ocultas =  capas_ocultas #vector con largo =  cantidad de capas y con cantidades de neurona por capa
         self._coef_aprendizaje =  coef_aprendizaje
         self._term_momento  = term_momento
         self._func_activacion_salida = func_activacion_salida # funcion de activación para la capa de entrada
@@ -22,18 +22,18 @@ class Red():
     #>>>TRATAMIENTO DE CAPAS 
     def inicializar_capas(self):
 
-        capa_de_entrada =self.capas.append(Capa(self._cant_neuronas_entrada, self._func_activacion, None, None, Tipo_de_capa.entrada))  
+        capa_de_entrada =Capa(self._cant_neuronas_entrada, self._func_activacion, None, None, Tipo_de_capa.entrada)  
         self.capas.append(capa_de_entrada)         
 
         capa_ant  = capa_de_entrada
-        for capa_i in range(len(self._capas_ocultas)):
-            nueva_capa  = Capa(self._capas_ocultas[capa_i], capa_ant, None, self.func_activacion, Tipo_de_capa.oculta)
+        for capa_i in range(len(self._capas_ocultas)): #solo trata capas ocultas
+            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta)
             self.capas.append(nueva_capa)
-            capa_ant._capa_siguiente = nueva_capa
+            capa_ant.capa_siguiente = nueva_capa
 
             capa_ant =  nueva_capa
 
-        capa_de_salida = Capa(self._cant_neuronas_salida, capa_ant, None, self._func_activacion_salida, Tipo_de_capa.salida)   
+        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida)   
         self.capas.append(capa_de_salida)
  
       
