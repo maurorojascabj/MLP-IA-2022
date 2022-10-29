@@ -11,6 +11,7 @@ class Capa():
         self.tipo = tipo
         self.vector_de_activacion = []
         
+        
         self.neuronas = []
         for i in range(cant_neuronas):
             nueva_neurona = Neurona(func_activacion)

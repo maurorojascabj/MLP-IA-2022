@@ -18,25 +18,24 @@ class Red():
         self.capas = []
         self.inicializar_capas()
 
-
     
     #>>>TRATAMIENTO DE CAPAS 
     def inicializar_capas(self):
-        self.inicializar_capa_de_entrada()
-        self.inicializar_capas_ocultas()
-        self.inicializar_capa_de_salida()
 
-    def inicializar_capa_de_entrada(self):
-        self.capas.append(Capa(self._cant_neuronas_entrada, self._func_activacion, 0, Tipo_de_capa.entrada))    
+        capa_de_entrada =self.capas.append(Capa(self._cant_neuronas_entrada, self._func_activacion, None, None, Tipo_de_capa.entrada))  
+        self.capas.append(capa_de_entrada)         
 
-    def inicializar_capas_ocultas(self):
-        #la primer capa se inicializa vinculando a la capa de entrada
-        self.capas.append(Capa(self._capas_ocultas[0], self.func_activacion, Tipo_de_capa.oculta))   
-        for capa_i in range(1, len(self._capas_ocultas)):
-            self.capas.append(Capa(self._capas_ocultas[capa_i], self._capas_ocultas[capa_i - 1], self.func_activacion, Tipo_de_capa.oculta))
+        capa_ant  = capa_de_entrada
+        for capa_i in range(len(self._capas_ocultas)):
+            nueva_capa  = Capa(self._capas_ocultas[capa_i], capa_ant, None, self.func_activacion, Tipo_de_capa.oculta)
+            self.capas.append(nueva_capa)
+            capa_ant._capa_siguiente = nueva_capa
 
-    def inicializar_capa_de_salida(self):
-        self.capas.append(Capa(self._cant_neuronas_salida, self._capas_ocultas[len(self._capas_ocultas) - 1], self._func_activacion_salida, Tipo_de_capa.salida))    
+            capa_ant =  nueva_capa
+
+        capa_de_salida = Capa(self._cant_neuronas_salida, capa_ant, None, self._func_activacion_salida, Tipo_de_capa.salida)   
+        self.capas.append(capa_de_salida)
+ 
       
 
     #>>>MECANISMOS DE ENTRENAMIENTO 
