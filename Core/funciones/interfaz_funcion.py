@@ -1,3 +1,3 @@
 class interfaz_funcion():
-    def calcular(self):
+    def calcular(self,net):
         pass
