@@ -1,0 +1,13 @@
+**/__pycache__
+
+Core/__pycache__/__init__.cpython-310.pyc
+Core/enums/__pycache__/__init__.cpython-310.pyc
+Core/enums/__pycache__/Tipo_de_capa.cpython-310.pyc
+Core/funciones/__pycache__/__init__.cpython-310.pyc
+Core/funciones/__pycache__/interfaz_funcion.cpython-310.pyc
+Core/funciones/__pycache__/lineal.cpython-310.pyc
+Core/funciones/__pycache__/sigmoidal.cpython-310.pyc
+Core/modelos/__pycache__/__init__.cpython-310.pyc
+Core/modelos/__pycache__/Capa.cpython-310.pyc
+Core/modelos/__pycache__/Neurona.cpython-310.pyc
+Core/modelos/__pycache__/Red.cpython-310.pyc

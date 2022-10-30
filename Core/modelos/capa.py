@@ -1,5 +1,5 @@
-from core.enums.Tipo_de_capa import Tipo_de_capa
-from core.modelos.Neurona import Neurona
+from Core.enums.Tipo_de_capa import Tipo_de_capa
+from Core.modelos.neurona import Neurona
 
 class Capa():
     def __init__ (self , cant_neuronas,  func_activacion, capa_anterior, capa_siguiente, tipo):

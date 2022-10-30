@@ -1,5 +1,5 @@
-from core.enums.Tipo_de_capa import Tipo_de_capa
-from core.modelos.Capa import Capa
+from Core.enums.Tipo_de_capa import Tipo_de_capa
+from Core.modelos.capa import Capa
 
 
 class Red():
@@ -46,7 +46,9 @@ class Red():
 
     def entrenar_red (self,  dataset_entrenamiento, dataset_validacion ):  
         for renglon in range(dataset_entrenamiento):
-           salida = self.entrenar_patron(renglon[0]) #con esta salida, calculo el error, y despues corrijo
+            vector_entrada=list(renglon[0])  #se convierte el string que forma el patron ingresado en un vector
+            salida = self.entrenar_patron([int(x) for x in vector_entrada]) #con esta salida, calculo el error, y despues corrijo
+            #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
 
 
 

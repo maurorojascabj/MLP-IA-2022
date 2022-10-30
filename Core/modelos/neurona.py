@@ -24,8 +24,15 @@ class Neurona():
         pass
 
     #Netn    
-    def calcular_entrada_total(vector_valores_entrada):
-        pass
+    def calcular_entrada_total(self, cant_neuronas_capa_anterior, vector_valores_entrada):
+        if(cant_neuronas_capa_anterior==0):
+            net = vector_valores_entrada #si es neurona de capa de entrada, net es igual a la unica entrada
+        else:
+            net=0
+            for i in range(cant_neuronas_capa_anterior):
+                net = net + self.vector_w[i] * vector_valores_entrada[i]
+            net =  net + self.umbral_w_0 #ver si se suma o resta
+        return net
 
     #para darle valores aleatorios iniciales al vector w   
     def inicializar_pesos(self, cant_neuronas_capa_anterior):
