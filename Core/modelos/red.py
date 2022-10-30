@@ -3,7 +3,7 @@ from Core.modelos.capa import Capa
 
 
 class Red():
-    def __init__ (self, capas_ocultas, func_activacion_salida, func_activacion, coef_aprendizaje, term_momento):
+    def __init__ (self, capas_ocultas, func_activacion_salida, func_activacion, coef_aprendizaje, term_momento, matrices_w = []):
         self._capas_ocultas =  capas_ocultas #vector con largo =  cantidad de capas y con cantidades de neurona por capa
         self._coef_aprendizaje =  coef_aprendizaje
         self._term_momento  = term_momento
@@ -14,8 +14,9 @@ class Red():
         self._cant_neuronas_salida =  3
 
         self.vector_de_activacion = []
-        self.matriz_de_pesos = []
+        self.matrices_w = matrices_w
         self.capas = []
+        
         self.inicializar_capas()
 
     
@@ -27,13 +28,13 @@ class Red():
 
         capa_ant  = capa_de_entrada
         for capa_i in range(len(self._capas_ocultas)): #solo trata capas ocultas
-            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta)
+            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta, self.matriz_w[capa_i])
             self.capas.append(nueva_capa)
             capa_ant.capa_siguiente = nueva_capa
 
             capa_ant =  nueva_capa
 
-        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida)   
+        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida, self.matriz_w)   
         self.capas.append(capa_de_salida)
  
       
@@ -66,3 +67,8 @@ class Red():
 
     def calcular_error_global():
         pass
+
+
+    #matriz W tiene un vector de longitud = (100 + 1 por el umbral) por cada neurona de capa oculta
+
+
