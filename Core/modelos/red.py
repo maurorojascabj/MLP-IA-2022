@@ -17,7 +17,10 @@ class Red():
         self.matrices_w = matrices_w
         self.capas = []
         
-        self.inicializar_capas()
+        if (matrices_w == []):
+            self.inicializar_capas()
+        else:
+            self.inicializar_capas_con_w()
 
     
     #>>>TRATAMIENTO DE CAPAS 
@@ -28,28 +31,50 @@ class Red():
 
         capa_ant  = capa_de_entrada
         for capa_i in range(len(self._capas_ocultas)): #solo trata capas ocultas
-            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta, self.matriz_w[capa_i])
+            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta)
+            self.capas.append(nueva_capa)
+            capa_ant.capa_siguiente = nueva_capa
+            capa_ant =  nueva_capa
+
+        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida)          
+        capa_ant.capa_siguiente = capa_de_salida
+        self.capas.append(capa_de_salida)
+ 
+
+    def inicializar_capas_con_w(self):
+
+        capa_de_entrada =Capa(self._cant_neuronas_entrada, self._func_activacion, None, None, Tipo_de_capa.entrada)  
+        self.capas.append(capa_de_entrada)         
+
+        capa_ant  = capa_de_entrada
+        for capa_i in range(len(self._capas_ocultas)): #solo trata capas ocultas
+            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta, self.matrices_w[capa_i])
             self.capas.append(nueva_capa)
             capa_ant.capa_siguiente = nueva_capa
 
             capa_ant =  nueva_capa
 
-        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida, self.matriz_w)   
+        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida, self.matrices_w[len(self.matrices_w) - 1])   
         self.capas.append(capa_de_salida)
- 
       
 
     #>>>MECANISMOS DE ENTRENAMIENTO 
     #realiza una corrida (epoca) de entrenamiento con 1 dataset a especificar
-    def entrenar_patron (self, vector_patron):
+    def entrenar_patron (self, vector_patron, salida_deseada):
     #mandar el patron a capa de entrada
-        self.capas[0].entrenar_partron(vector_patron)
+        list_salida_deseada = list(salida_deseada)
+        return self.capas[0].entrenar_patron(vector_patron, [int(x) for x in list_salida_deseada])
 
-    def entrenar_red (self,  dataset_entrenamiento, dataset_validacion ):  
-        for renglon in range(dataset_entrenamiento):
-            vector_entrada=list(renglon[0])  #se convierte el string que forma el patron ingresado en un vector
-            salida = self.entrenar_patron([int(x) for x in vector_entrada]) #con esta salida, calculo el error, y despues corrijo
+    def entrenar_red (self,  dataset_entrenamiento, dataset_validacion):  
+        i=0
+        for renglon in dataset_entrenamiento:
+            vector_entrada=list(renglon[0]) 
+            salida_deseada=renglon[2] #se convierte el string que forma el patron ingresado en un vector
+            salida = self.entrenar_patron([int(x) for x in vector_entrada], salida_deseada)                                    
+             #con esta salida, calculo el error, y despues corrijo
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
+            i+=1
+            print( str(i) +''+ str(salida))
 
 
 

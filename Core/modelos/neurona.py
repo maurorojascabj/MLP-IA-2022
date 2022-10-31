@@ -2,19 +2,19 @@ from random import random
 
 
 class Neurona():
-    def __init__(self, funcion_salida, cant_neuronas_capa_anterior):
+    def __init__(self, funcion_salida, cant_neuronas_capa_anterior, vector_w ):
         self._funcion_salida = funcion_salida
+        self._cant_neuronas_capa_anterior = cant_neuronas_capa_anterior
 
-        self.vector_w = [] #vector de n pesos asociados a las n entradas (de capa anterior) de la neurona        
-        self.umbral_w_0 = random       
+        self.vector_w = vector_w#vector de n pesos asociados a las n entradas (de capa anterior) de la neurona        
+        self.umbral_w_0 = self.vector_w[0]     
         self.valor_estado_activacion = 1 #self.calcular_estado_activacion()
-        self.inicializar_pesos(cant_neuronas_capa_anterior)#en capa de entraada llega un 0
-
+      
     #Yn f(Net)
     #trata el string de entrada, donde cada dígito es la salida de una neurona de la capa anterior (en capa de entrada no, es una de las 100 entradas)
     def calcular_salida(self, vector_valores_entrada):
         #tratatar patron
-        net = self.calcular_entrada_total(vector_valores_entrada)    
+        net = self.calcular_entrada_total( self._cant_neuronas_capa_anterior ,vector_valores_entrada)    
         return self._funcion_salida.calcular(net)#plantear parametros
 
         
