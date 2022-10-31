@@ -31,18 +31,19 @@ porcentaje_validacion_3 = 0.3
 funcion_sigmoidal  = sigmoidal()
 funcion_lineal = lineal()
 
-archivo="c:/Users/USER/Documents/ISI 5TO/INTELIGENCIA ARTIFICIAL/TPI/dataset1000.txt"
+archivo="dataset1000.txt"
 tamanio_archivo= 1000
 
 dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_1)
 
 print(len(dataset_validacion))
-print(len(dataset_entrenamiento))
+print(dataset_entrenamiento[0][2])
 print(len(dataset_testing))
+
+red.entrenar_red(dataset_entrenamiento,dataset_validacion)
 
 #print(dataset_validacion[5][0][15])
 #print(list(dataset_entrenamiento[5][0]))
-
 vector_entrada=list(dataset_entrenamiento[5][0])
 print([int(x) for x in vector_entrada]) 
 
