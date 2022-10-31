@@ -6,6 +6,9 @@ from Core.funciones.sigmoidal import sigmoidal
 from Core.modelos.red import Red
 from tratamiento_datasets.dividir_dataset import dividir_dataset
 
+import numpy as np
+
+
 funcion_sigmoidal = sigmoidal()
 
 red  = Red([2,3,4],funcion_sigmoidal, funcion_sigmoidal,0.5,0.5)
