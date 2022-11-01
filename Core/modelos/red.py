@@ -1,6 +1,7 @@
 from Core.enums.Tipo_de_capa import Tipo_de_capa
 from Core.modelos.capa import Capa
 from Core.funciones.lineal import lineal
+from tratamiento_datasets.matrices_pesos_por_capa import guardar_pesos
 
 
 class Red():
@@ -80,6 +81,8 @@ class Red():
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
             #print( str(i) +''+ str(salida))
+        #print(self.matrices_w)
+        guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
 
     def calculo_y_propagacion_de_errores(self, salida_deseada):
         errores_capa_posterior = None
@@ -95,6 +98,8 @@ class Red():
             if capa.tipo != Tipo_de_capa.entrada:
                 matrices_w_actualizada.append(capa.actualizar_pesos())
         return matrices_w_actualizada    
+    
+
 
 
     def calcular_error_patron(self,salida_obtenida, salida_desada):

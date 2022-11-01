@@ -11,3 +11,5 @@ Core/modelos/__pycache__/__init__.cpython-310.pyc
 Core/modelos/__pycache__/Capa.cpython-310.pyc
 Core/modelos/__pycache__/Neurona.cpython-310.pyc
 Core/modelos/__pycache__/Red.cpython-310.pyc
+Core/__pycache__/__init__.cpython-310.pyc
+Core/enums/__pycache__/__init__.cpython-310.pyc
