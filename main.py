@@ -40,9 +40,13 @@ tamanio_archivo= 1000
 dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
 
 
-#obtener_pesos("archivos_w\caso1.txt")
 
-red.entrenar_red(dataset_entrenamiento,dataset_validacion)
+
+
+#obtener_pesos("archivos_w\caso1.txt")
+                
+
+#red.entrenar_red(dataset_entrenamiento,dataset_validacion)
 
 #print(dataset_validacion[5][0][15])
 #print(list(dataset_entrenamiento[5][0]))

@@ -38,6 +38,7 @@ class Red():
             self.capas.append(nueva_capa)
             capa_ant.capa_siguiente = nueva_capa
             capa_ant =  nueva_capa
+        
 
         capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento)          
         capa_ant.capa_siguiente = capa_de_salida
@@ -56,6 +57,8 @@ class Red():
             capa_ant.capa_siguiente = nueva_capa
 
             capa_ant =  nueva_capa
+
+       
 
         capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento, self.matrices_w[len(self.matrices_w) - 1])   
         self.capas.append(capa_de_salida)
@@ -81,7 +84,7 @@ class Red():
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
             #print( str(i) +''+ str(salida))
-        #print(self.matrices_w)
+       
         guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
 
     def calculo_y_propagacion_de_errores(self, salida_deseada):
