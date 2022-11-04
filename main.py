@@ -42,7 +42,11 @@ tamanio_archivo= 1000
 dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
 
 
+
+
+
 #obtener_pesos("archivos_w\caso1.txt")
+                
 
 
 for i in range(45):
