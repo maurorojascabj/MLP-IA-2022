@@ -18,7 +18,9 @@ class Red():
         self.vector_de_activacion = []
         self.matrices_w = matrices_w
         self.capas = []
-        self.error_patron = 0
+        self.acumulacion_i_errores = 0
+        self.acumulacion_i_patrones = 0
+        self.error_global = 0
         
         if (matrices_w == []):
             self.inicializar_capas()
@@ -74,14 +76,17 @@ class Red():
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
             salida_obtenida = self.entrenar_patron([int(x) for x in vector_entrada]) 
-            self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada)        
+            self.acumulacion_i_errores += self.calcular_error_patron(salida_obtenida, salida_deseada)        
             self.calculo_y_propagacion_de_errores(salida_deseada)
-            self.matrices_w = self.actualizar_pesos()
-             #con esta salida, calculo el error, y despues corrijo
+            self.matrices_w = self.actualizar_pesos()          
+
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
+            self.acumulacion_i_patrones+=1
+            self.calcular_error_global()
             #print( str(i) +''+ str(salida))
         #print(self.matrices_w)
+        
         guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
 
     def calculo_y_propagacion_de_errores(self, salida_deseada):
@@ -121,8 +126,8 @@ class Red():
     def actualizar_vector_de_activacion():
         pass
 
-    def calcular_error_global():
-        pass
+    def calcular_error_global(self):
+        self.error_global = self.acumulacion_i_errores / self.acumulacion_i_patrones
 
 
     #matriz W tiene un vector de longitud = (100 + 1 por el umbral) por cada neurona de capa oculta

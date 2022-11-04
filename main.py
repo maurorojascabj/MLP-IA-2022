@@ -12,7 +12,9 @@ import numpy as np
 
 funcion_sigmoidal = sigmoidal()
 
-red  = Red([2,3,4],funcion_sigmoidal, funcion_sigmoidal,0.5,0.5,obtener_pesos("archivos_w\caso1.txt"))
+#red  = Red([2,3,4],funcion_sigmoidal, funcion_sigmoidal,0.5,0.5,obtener_pesos("archivos_w\caso1.txt"))
+
+red  = Red([5,8],funcion_sigmoidal, funcion_sigmoidal,0.7,0.7)
 
 
 print('terminar')
@@ -42,8 +44,13 @@ dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archi
 
 #obtener_pesos("archivos_w\caso1.txt")
 
-red.entrenar_red(dataset_entrenamiento,dataset_validacion)
 
+for i in range(45):
+    red.entrenar_red(dataset_entrenamiento,dataset_validacion)  
+    print(red.error_global)
+
+
+#red.clasificar(patron)
 #print(dataset_validacion[5][0][15])
 #print(list(dataset_entrenamiento[5][0]))
 
