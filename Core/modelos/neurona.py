@@ -1,5 +1,5 @@
 from random import random
-
+import numpy as np
 
 class Neurona():
     def __init__(self, funcion_transferencia, cant_neuronas_capa_anterior, coef_aprendizaje, term_momento, vector_w ):
@@ -63,8 +63,8 @@ class Neurona():
         for i in range(len(self.vector_valores_entrada)):
             w_siguiente = self.vector_w[i+1] + self._coef_aprendizaje * self.error * self.vector_valores_entrada[i] + self._term_momento * self.vector_delta_w[i+1]            
             #actualizo pesos para t+1
-            self.vector_delta_w[i] = w_siguiente - self.vector_w[i] 
-            self.vector_w[i] =  w_siguiente
+            self.vector_delta_w[i] = np.round(w_siguiente - self.vector_w[i],3) 
+            self.vector_w[i] =  np.round(w_siguiente)
 
 
 
