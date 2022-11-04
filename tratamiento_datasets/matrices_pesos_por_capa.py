@@ -18,12 +18,6 @@ def obtener_pesos(archivo):
     return capas
 
             
-                
-              
-                
-            
-
-
 
 def guardar_pesos(archivo, matrices_w):
     with open(archivo, mode="a") as file:
