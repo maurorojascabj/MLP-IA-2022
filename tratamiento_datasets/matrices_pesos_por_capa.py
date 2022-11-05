@@ -34,4 +34,4 @@ def guardar_pesos(archivo, matrices_w):
                     file.write(",")
             if(i!=(len(matrices_w)-1)):
                 file.write(";")
-        file.write("-     aca termina       -")
+       

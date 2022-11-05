@@ -80,14 +80,14 @@ class Red():
             self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada) 
             #print(self.error_patron)       
             self.calculo_y_propagacion_de_errores(salida_deseada)
-            guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
+            
             self.matrices_w = self.actualizar_pesos()
              #con esta salida, calculo el error, y despues corrijo
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
         
             #print( str(i) +''+ str(salida))
        
-            #guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
+        guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
 
 
     def calculo_y_propagacion_de_errores(self, salida_deseada):
