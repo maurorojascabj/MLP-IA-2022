@@ -11,7 +11,7 @@ from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
 funcion_sigmoidal = sigmoidal()
 funcion_lineal = lineal()
 
-red  = Red([2,3,4],funcion_sigmoidal, funcion_lineal,0.5,0.5)
+red  = Red([2,3,4], funcion_sigmoidal,funcion_lineal,0.5,0.5)
 
 porcentaje_testing = 0.2
 porcentaje_validacion_1 = 0.1
@@ -26,7 +26,14 @@ dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archi
 #obtener_pesos("archivos_w\caso1.txt")
                 
 
-red.entrenar_red(dataset_entrenamiento,dataset_validacion)
+for i in range(2):
+    red.entrenar_red(dataset_entrenamiento,dataset_validacion)  
+    #print(red.error_global)
+
+
+print("")
+
+
 
 #print(dataset_validacion[5][0][15])
 #print(list(dataset_entrenamiento[5][0]))

@@ -1,3 +1,4 @@
+from numpy import i0
 from Core.enums.Tipo_de_capa import Tipo_de_capa
 from Core.modelos.capa import Capa
 from Core.funciones.lineal import lineal
@@ -16,7 +17,7 @@ class Red():
         self._cant_neuronas_salida =  3
 
         self.vector_de_activacion = []
-        self.matrices_w = matrices_w
+        self.matrices_w = matrices_w.copy()
         self.capas = []
         self.error_patron = 0
         
@@ -71,21 +72,23 @@ class Red():
         return self.capas[0].entrenar_patron(vector_patron)
 
     def entrenar_red (self,  dataset_entrenamiento, dataset_validacion):  
+        i=0
         for renglon in dataset_entrenamiento:
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
             salida_obtenida = self.entrenar_patron([int(x) for x in vector_entrada]) 
-           # print(salida_obtenida)
+            print(salida_obtenida)
             self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada) 
             #print(self.error_patron)       
             self.calculo_y_propagacion_de_errores(salida_deseada)
             
             self.matrices_w = self.actualizar_pesos()
+            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
              #con esta salida, calculo el error, y despues corrijo
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
-        
-            #print( str(i) +''+ str(salida))
+            i+=1
+            print(i)
        
         guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
 
@@ -94,9 +97,9 @@ class Red():
         errores_capa_posterior = None
         for i in range(len(self.capas)-1, 0, -1):
             capa = self.capas[i]
-            if (capa.capa_anterior != Tipo_de_capa.entrada):
+            if (capa.tipo != Tipo_de_capa.entrada):#
                 errores_capa = capa.calcular_error(salida_deseada, errores_capa_posterior)
-                errores_capa_posterior = errores_capa
+                errores_capa_posterior = errores_capa.copy()
 
     def actualizar_pesos(self):
         matrices_w_actualizada = []     

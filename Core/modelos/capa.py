@@ -17,7 +17,7 @@ class Capa():
         self.errores_capa=[]
 
         if(matriz_w != None):
-            self.matriz_w =  matriz_w 
+            self.matriz_w =  matriz_w.copy() 
         else:    
             self.matriz_w =[]
 
@@ -47,7 +47,8 @@ class Capa():
 
     def actualizar_pesos (self):
         self.matriz_w = []
-        for i in range(len(self.neuronas)):            
+        for i in range(len(self.neuronas)):  
+            #print("neurona "+ str(i) + "capa de " + str(self.cant_neuronas))          
             self.neuronas[i].actualizar_vector_pesos()        
             self.matriz_w.append(self.neuronas[i].vector_w) 
         
@@ -74,12 +75,12 @@ class Capa():
         else:
             i=0
             for neurona in self.neuronas:
-                vector_pesos_capa_posterior= self.neurona_i_pesos_a_capa_posterior( i + 1 )
+                vector_pesos_capa_posterior = self.neurona_i_pesos_a_capa_posterior( i + 1 )
                 error_neurona_i = neurona.calcular_error_en_capa_oculta(vector_pesos_capa_posterior, errores_capa_posterior)
                 errores_capa.append(error_neurona_i)
                 i+=1       
 
-        self.errores_capa = errores_capa
+        self.errores_capa = errores_capa.copy()
         
         return self.errores_capa
         # if (self.capa_anterior != Tipo_de_capa.entrada):
@@ -93,7 +94,7 @@ class Capa():
         vector_pesos = []
         for neurona in self.capa_siguiente.neuronas:
             vector_pesos.append(neurona.vector_w[pos_neurona])
-        return vector_pesos    
+        return vector_pesos   
 
  
 
@@ -103,9 +104,9 @@ class Capa():
 
         if(self.tipo  != Tipo_de_capa.entrada):
             for neurona in self.neuronas:
-                salida_de_la_capa.append(neurona.calcular_salida(vector_entradas))
+                salida_de_la_capa.append(neurona.calcular_salida(vector_entradas.copy()))
         else:           
-            for i in range(len(vector_entradas)): # cuando es capa de entrada, este vector tiene 100 y a cada neurona sólo le interesa 1
+            for i in range(len(vector_entradas.copy())): # cuando es capa de entrada, este vector tiene 100 y a cada neurona sólo le interesa 1
                 
                 entrada_neurona_de_entrada.append(vector_entradas[i])
                 salida_de_la_capa.append(vector_entradas[i])    
@@ -113,7 +114,7 @@ class Capa():
 
         # una vez que tengo todas las salidas de la capa
         if self.tipo  != Tipo_de_capa.salida:
-            salida_red = self.capa_siguiente.entrenar_patron(salida_de_la_capa)   
+            salida_red = self.capa_siguiente.entrenar_patron(salida_de_la_capa.copy())   
             return salida_red
         else:
             return salida_de_la_capa

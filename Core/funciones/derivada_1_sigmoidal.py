@@ -2,6 +2,9 @@
 import math
 
 from Core.funciones.interfaz_funcion import interfaz_funcion
+from decimal import *
+
+getcontext().prec = 10
 
 class derivada_1_sigmoidal(interfaz_funcion): 
     def calcular(x):

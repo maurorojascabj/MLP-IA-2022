@@ -1,5 +1,6 @@
 from random import random
 from decimal import *
+import numpy as np
 
 getcontext().prec = 10
 
@@ -10,14 +11,17 @@ class Neurona():
         self._coef_aprendizaje = coef_aprendizaje
         self._term_momento = term_momento 
 
-        self.vector_w = vector_w#vector de n pesos asociados a las n entradas (de capa anterior) de la neurona        
+        self.vector_w = vector_w.copy()#vector de n pesos asociados a las n entradas (de capa anterior) de la neurona        
+        
         self.umbral_w_0 = Decimal(self.vector_w[0])     
         self.valor_estado_activacion = 1 #self.calcular_estado_activacion()
 
         self.net = 0
         self.salida = 0 #f(net)
         self.error = 0 #delta
-        self.vector_delta_w = self.vector_w 
+
+        self.vector_delta_w = vector_w.copy()
+
         self.vector_valores_entrada = []
       
     #Yn f(Net)
@@ -31,14 +35,14 @@ class Neurona():
  
     #Netn    
     def calcular_entrada_total(self, cant_neuronas_capa_anterior, vector_valores_entrada):
-        self.vector_valores_entrada = vector_valores_entrada
+        self.vector_valores_entrada = vector_valores_entrada.copy()
         if(cant_neuronas_capa_anterior==0):
             self.net = Decimal(vector_valores_entrada[0]) #si es neurona de capa de entrada, net es igual a la unica entrada
         else:
             self.net=Decimal(0)
             for i in range(cant_neuronas_capa_anterior):
-                self.net += self.vector_w[i] * vector_valores_entrada[i]
-            self.net =+ self.umbral_w_0 #ver si se suma o resta
+                self.net += self.vector_w[i+1] * vector_valores_entrada[i]
+            self.net += self.umbral_w_0 #ver si se suma o resta
      
 
     def calcular_error_en_capa_salida(self, salida_deseada): #error en neurona de salida
@@ -77,8 +81,12 @@ class Neurona():
             #actualizo pesos para t+1
             self.vector_delta_w[i] = Decimal(w_siguiente) - Decimal(self.vector_w[i]) 
             self.vector_w[i] =  w_siguiente
-           
+ 
 
+        # print("Delta w")   
+        # print(self.vector_delta_w)
+        # print("w")  
+        # print(self.vector_w)
 
 
         #actualizar pesos según la diferencia entre salida deseada y obtenida 
