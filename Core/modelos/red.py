@@ -77,8 +77,9 @@ class Red():
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
-            salida_obtenida = self.entrenar_patron([int(x) for x in vector_entrada]) 
-            print(salida_obtenida)
+            ve=[int(x) for x in vector_entrada]
+            salida_obtenida = self.entrenar_patron(ve) 
+           # print(salida_obtenida)
             self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada) 
             #print(self.error_patron)       
             self.calculo_y_propagacion_de_errores(salida_deseada)
