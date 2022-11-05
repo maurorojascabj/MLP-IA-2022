@@ -75,13 +75,15 @@ class Red():
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
-            salida_obtenida = self.entrenar_patron([int(x) for x in vector_entrada]) 
+            ve=[int(x) for x in vector_entrada]
+            salida_obtenida = self.entrenar_patron(ve) 
            # print(salida_obtenida)
             self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada) 
             #print(self.error_patron)       
             self.calculo_y_propagacion_de_errores(salida_deseada)
             
             self.matrices_w = self.actualizar_pesos()
+            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
              #con esta salida, calculo el error, y despues corrijo
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
         

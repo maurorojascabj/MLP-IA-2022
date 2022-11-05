@@ -24,7 +24,10 @@ class Neurona():
     #trata el string de entrada, donde cada dígito es la salida de una neurona de la capa anterior (en capa de entrada no, es una de las 100 entradas)
     def calcular_salida(self, vector_valores_entrada):
         #tratatar patron
+       # print("vector entrada: ")
+       # print(vector_valores_entrada)
         self.calcular_entrada_total( self._cant_neuronas_capa_anterior ,vector_valores_entrada)
+       # print("net: "+ str(self.net))
         self.salida =  self._funcion_transferencia.calcular(self.net)   
         return self.salida#plantear parametros
 
@@ -33,12 +36,13 @@ class Neurona():
     def calcular_entrada_total(self, cant_neuronas_capa_anterior, vector_valores_entrada):
         self.vector_valores_entrada = vector_valores_entrada
         if(cant_neuronas_capa_anterior==0):
-            self.net = Decimal(vector_valores_entrada[0]) #si es neurona de capa de entrada, net es igual a la unica entrada
+            self.net = Decimal(vector_valores_entrada) #si es neurona de capa de entrada, net es igual a la unica entrada
         else:
             self.net=Decimal(0)
             for i in range(cant_neuronas_capa_anterior):
                 self.net += self.vector_w[i] * vector_valores_entrada[i]
             self.net =+ self.umbral_w_0 #ver si se suma o resta
+            
      
 
     def calcular_error_en_capa_salida(self, salida_deseada): #error en neurona de salida
@@ -66,7 +70,7 @@ class Neurona():
 
         #w_o se trata por separado con entrada = 1
         w_0_siguiente = Decimal(self.vector_w[0]) + Decimal(self._coef_aprendizaje) * Decimal(self.error) * Decimal(1) + Decimal(self._term_momento) * Decimal(self.vector_delta_w[0])
-        print(str(Decimal(w_0_siguiente))+"  "+str(self.vector_w[0]))
+        #print(str(Decimal(w_0_siguiente))+"  "+str(self.vector_w[0]))
         
         self.vector_delta_w[0] = Decimal(w_0_siguiente) - Decimal(self.vector_w[0])
         self.vector_w[0] = w_0_siguiente

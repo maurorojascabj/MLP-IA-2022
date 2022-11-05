@@ -108,7 +108,7 @@ class Capa():
             for i in range(len(vector_entradas)): # cuando es capa de entrada, este vector tiene 100 y a cada neurona sólo le interesa 1
                 
                 entrada_neurona_de_entrada.append(vector_entradas[i])
-                salida_de_la_capa.append(vector_entradas[i])    
+                salida_de_la_capa.append(self.neuronas[i].calcular_salida(vector_entradas[i]))    
          
 
         # una vez que tengo todas las salidas de la capa
