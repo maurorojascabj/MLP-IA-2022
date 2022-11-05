@@ -5,12 +5,12 @@ from tratamiento_datasets.matrices_pesos_por_capa import guardar_pesos
 
 
 class Red():
-    def __init__ (self, capas_ocultas, func_activacion_salida, func_activacion, coef_aprendizaje, term_momento, matrices_w = []):
+    def __init__ (self, capas_ocultas, func_transferencia_salida, func_transferencia_ocultas, coef_aprendizaje, term_momento, matrices_w = []):
         self._capas_ocultas =  capas_ocultas #vector con largo =  cantidad de capas y con cantidades de neurona por capa
         self._coef_aprendizaje =  coef_aprendizaje
         self._term_momento  = term_momento
-        self._func_activacion_salida = func_activacion_salida # funcion de activación para la capa de entrada
-        self._func_activacion =  func_activacion #funcion de activacion de clase "interfaz_funcion" para capas ocultas y de salida       
+        self._func_transferencia_salida = func_transferencia_salida # funcion de activación para la capa de entrada
+        self._func_transferencia_ocultas=  func_transferencia_ocultas #funcion de activacion de clase "interfaz_funcion" para capas ocultas y de salida       
 
         self._cant_neuronas_entrada = 100
         self._cant_neuronas_salida =  3
@@ -34,13 +34,13 @@ class Red():
 
         capa_ant  = capa_de_entrada
         for capa_i in range(len(self._capas_ocultas)): #solo trata capas ocultas
-            nueva_capa  = Capa(self._capas_ocultas[capa_i],lineal(), capa_ant, None, Tipo_de_capa.oculta, self._coef_aprendizaje, self._term_momento)
+            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_transferencia_ocultas, capa_ant, None, Tipo_de_capa.oculta, self._coef_aprendizaje, self._term_momento)
             self.capas.append(nueva_capa)
             capa_ant.capa_siguiente = nueva_capa
             capa_ant =  nueva_capa
         
 
-        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento)          
+        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_transferencia_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento)          
         capa_ant.capa_siguiente = capa_de_salida
         self.capas.append(capa_de_salida)
  
@@ -52,7 +52,7 @@ class Red():
 
         capa_ant  = capa_de_entrada
         for capa_i in range(len(self._capas_ocultas)): #solo trata capas ocultas
-            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta, self._coef_aprendizaje, self._term_momento, self.matrices_w[capa_i])
+            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_transferencia_ocultas, capa_ant, None, Tipo_de_capa.oculta, self._coef_aprendizaje, self._term_momento, self.matrices_w[capa_i])
             self.capas.append(nueva_capa)
             capa_ant.capa_siguiente = nueva_capa
 
@@ -60,7 +60,7 @@ class Red():
 
        
 
-        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_activacion_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento, self.matrices_w[len(self.matrices_w) - 1])   
+        capa_de_salida = Capa(self._cant_neuronas_salida, self._func_transferencia_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento, self.matrices_w[len(self.matrices_w) - 1])   
         self.capas.append(capa_de_salida)
       
 
@@ -71,20 +71,20 @@ class Red():
         return self.capas[0].entrenar_patron(vector_patron)
 
     def entrenar_red (self,  dataset_entrenamiento, dataset_validacion):  
-        i=0
-        print(self.matrices_w)
         for renglon in dataset_entrenamiento:
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
             salida_obtenida = self.entrenar_patron([int(x) for x in vector_entrada]) 
-            self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada)        
+           # print(salida_obtenida)
+            self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada) 
+            #print(self.error_patron)       
             self.calculo_y_propagacion_de_errores(salida_deseada)
             guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
             self.matrices_w = self.actualizar_pesos()
              #con esta salida, calculo el error, y despues corrijo
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
-            i+=1
+        
             #print( str(i) +''+ str(salida))
        
             #guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
@@ -108,10 +108,10 @@ class Red():
 
 
 
-    def calcular_error_patron(self,salida_obtenida, salida_desada):
+    def calcular_error_patron(self,salida_obtenida, salida_deseada):
         sumatoria = 0
         for i in range(len(salida_obtenida)):
-            sumatoria +=((salida_obtenida[i]-salida_desada[i]) * self._func_activacion_salida.calcular_derivada(salida_obtenida[i]))**2
+            sumatoria +=((salida_deseada[i]-salida_obtenida[i]) * self._func_transferencia_salida.calcular_derivada(salida_obtenida[i]))**2
         return sumatoria/2        
 
 

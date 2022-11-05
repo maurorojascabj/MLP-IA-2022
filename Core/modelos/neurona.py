@@ -40,7 +40,7 @@ class Neurona():
      
 
     def calcular_error_en_capa_salida(self, salida_deseada): #error en neurona de salida
-        self.error = (self.salida - salida_deseada) * self._funcion_transferencia.calcular_derivada(self.net)
+        self.error = (salida_deseada - self.salida) * self._funcion_transferencia.calcular_derivada(self.net)
         return self.error
 
 
@@ -60,11 +60,12 @@ class Neurona():
         self.vector_w[0] =  w_0_siguiente
 
 
-        for i in range(len(self.vector_valores_entrada)):
-            w_siguiente = self.vector_w[i+1] + self._coef_aprendizaje * self.error * self.vector_valores_entrada[i] + self._term_momento * self.vector_delta_w[i+1]            
+        for i in range(1, len(self.vector_valores_entrada)):
+            w_siguiente = self.vector_w[i] + self._coef_aprendizaje * self.error * self.vector_valores_entrada[i] + self._term_momento * self.vector_delta_w[i]            
             #actualizo pesos para t+1
             self.vector_delta_w[i] = w_siguiente - self.vector_w[i] 
             self.vector_w[i] =  w_siguiente
+           
 
 
 

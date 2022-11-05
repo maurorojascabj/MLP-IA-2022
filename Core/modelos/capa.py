@@ -26,7 +26,7 @@ class Capa():
                 self.matriz_w.append([])
                 for j in range(capa_anterior.cant_neuronas + 1):
                     self.matriz_w[i].append(np.round(np.random.uniform(-1.0, 1.0),3)         )
-            print(self.matriz_w)
+         #   print(self.matriz_w)
             
              
         
@@ -98,15 +98,17 @@ class Capa():
 
     def entrenar_patron (self, vector_entradas): #estamos trabajando con 1 renglon del archivo = 1 patron de entrada
         salida_de_la_capa = [] 
+        entrada_neurona_de_entrada = []
 
         if(self.tipo  != Tipo_de_capa.entrada):
             for neurona in self.neuronas:
                 salida_de_la_capa.append(neurona.calcular_salida(vector_entradas))
         else:           
             for i in range(len(vector_entradas)): # cuando es capa de entrada, este vector tiene 100 y a cada neurona sólo le interesa 1
-                entrada_neurona_de_entrada = []
+                
                 entrada_neurona_de_entrada.append(vector_entradas[i])
-                salida_de_la_capa.append(self.neuronas[i].calcular_salida([vector_entradas[i]]))    
+                salida_de_la_capa.append(vector_entradas[i])    
+         
 
         # una vez que tengo todas las salidas de la capa
         if self.tipo  != Tipo_de_capa.salida:

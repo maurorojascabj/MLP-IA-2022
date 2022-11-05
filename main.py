@@ -7,40 +7,20 @@ from Core.modelos.red import Red
 from tratamiento_datasets.dividir_dataset import dividir_dataset
 from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
 
-import numpy as np
-
 
 funcion_sigmoidal = sigmoidal()
+funcion_lineal = lineal()
 
-red  = Red([2,3,4],funcion_sigmoidal, funcion_sigmoidal,0.5,0.5)
-
-
-print('terminar')
-
-
-
-
-
-
-
-
+red  = Red([2,3,4],funcion_sigmoidal, funcion_lineal,0.5,0.5)
 
 porcentaje_testing = 0.2
-
 porcentaje_validacion_1 = 0.1
 porcentaje_validacion_2 = 0.2
 porcentaje_validacion_3 = 0.3
 
-funcion_sigmoidal  = sigmoidal()
-funcion_lineal = lineal()
-
 archivo="dataset1000.txt"
 tamanio_archivo= 1000
-
 dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
-
-
-
 
 
 #obtener_pesos("archivos_w\caso1.txt")
