@@ -6,10 +6,11 @@ import numpy as np
 
 
 from Core.funciones.interfaz_funcion import interfaz_funcion
+from decimal import *
 
 class sigmoidal(interfaz_funcion): 
     def calcular(self,x):
-        return np.round(1 / (1+(math.e**(-x))),3)  
+        return 1 / (1+(Decimal(math.e)**(-x)))  
 
     def calcular_derivada(self, x):
         resultado = derivada_1_sigmoidal.calcular(x)
