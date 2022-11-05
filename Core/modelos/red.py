@@ -34,7 +34,7 @@ class Red():
 
         capa_ant  = capa_de_entrada
         for capa_i in range(len(self._capas_ocultas)): #solo trata capas ocultas
-            nueva_capa  = Capa(self._capas_ocultas[capa_i],self._func_activacion, capa_ant, None, Tipo_de_capa.oculta, self._coef_aprendizaje, self._term_momento)
+            nueva_capa  = Capa(self._capas_ocultas[capa_i],lineal(), capa_ant, None, Tipo_de_capa.oculta, self._coef_aprendizaje, self._term_momento)
             self.capas.append(nueva_capa)
             capa_ant.capa_siguiente = nueva_capa
             capa_ant =  nueva_capa
@@ -72,6 +72,7 @@ class Red():
 
     def entrenar_red (self,  dataset_entrenamiento, dataset_validacion):  
         i=0
+        print(self.matrices_w)
         for renglon in dataset_entrenamiento:
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
@@ -79,13 +80,15 @@ class Red():
             salida_obtenida = self.entrenar_patron([int(x) for x in vector_entrada]) 
             self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada)        
             self.calculo_y_propagacion_de_errores(salida_deseada)
+            guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
             self.matrices_w = self.actualizar_pesos()
              #con esta salida, calculo el error, y despues corrijo
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
             #print( str(i) +''+ str(salida))
        
-        guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
+            #guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
+
 
     def calculo_y_propagacion_de_errores(self, salida_deseada):
         errores_capa_posterior = None
