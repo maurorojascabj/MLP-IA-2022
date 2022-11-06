@@ -37,7 +37,7 @@ class Capa():
         self.neuronas = []
         if(self.tipo == Tipo_de_capa.entrada):
             for i in range(cant_neuronas):
-                nueva_neurona = Neurona(lineal(), 0, self._coef_aprendizaje, self._term_momento,  [0])
+                nueva_neurona = Neurona(identidad(), 0, self._coef_aprendizaje, self._term_momento,  [0])
                 self.neuronas.append(nueva_neurona)
         else:    
             for i in range(cant_neuronas):

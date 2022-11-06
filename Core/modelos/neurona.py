@@ -56,12 +56,6 @@ class Neurona():
         self.error = self._funcion_transferencia.calcular_derivada(self.salida) * sumatoria
         return self.error
 
-    def mostrar(self,pesos_capa_posterior, error_neuronas_capa_posterior):
-        archivo="archivos_w\caso1.txt"
-        with open(archivo, mode="a") as file:
-            for i in range(len(pesos_capa_posterior)):
-                file.write(str(pesos_capa_posterior[i])+"  "+str(error_neuronas_capa_posterior[i]))
-
 
     def actualizar_vector_pesos(self):
         #print(self.vector_w)

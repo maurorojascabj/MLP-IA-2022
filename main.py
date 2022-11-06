@@ -16,7 +16,7 @@ funcion_lineal = lineal()
 
 #matriz_w = [[[ 0.0, 0.4 , 0.5],[ 0.0, 0.6 ,  0.8]],[[ 0.0, 0.7 , 0.2 ]]]
 
-red  = Red([10,10], funcion_sigmoidal,funcion_sigmoidal,0.5,0.9)
+red  = Red([5], funcion_sigmoidal,funcion_lineal,0.5,0.5)
 
 porcentaje_testing = 0.2
 porcentaje_validacion_1 = 0.1
@@ -36,18 +36,29 @@ random.shuffle(dataset_entrenamiento)
 random.shuffle(dataset_validacion)
 
 error_global_entrenamiento=9999
-error_global_validacion_anterior=9999
-error_global_validacion=-1
-umbral=0.000001
+
+error_global_valid=[9999,9998,-1]
+
+umbral=0.001
 
 i=0
-while((error_global_entrenamiento>=error_global_validacion) and (error_global_entrenamiento>umbral)):
+while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>=error_global_valid[2])) and (error_global_entrenamiento>umbral)):
+    
     error_global_entrenamiento=red.entrenar_red(dataset_entrenamiento)
-    error_global_validacion= red.validar_red(dataset_validacion)
+    
+    if (i>1):
+        error_global_valid[0]=error_global_valid[1]
+        error_global_valid[1]=error_global_valid[2]
+        error_global_valid[2]=red.validar_red(dataset_validacion)
+    elif(i>0):
+        error_global_valid[1]=error_global_valid[2]
+        error_global_valid[2]=red.validar_red(dataset_validacion)
+    else:
+        error_global_valid[2]=red.validar_red(dataset_validacion)
    
 
     print("error global entrenamiento: "+str(error_global_entrenamiento))
-    print("error global validacion: "+str(error_global_validacion))
+    print("error global validacion: "+str(error_global_valid[2]))
     
     print("epoca: "+str(i))
     i+= 1
