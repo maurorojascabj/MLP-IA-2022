@@ -62,6 +62,7 @@ class Red():
        
 
         capa_de_salida = Capa(self._cant_neuronas_salida, self._func_transferencia_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento, self.matrices_w[len(self.matrices_w) - 1])   
+        capa_ant.capa_siguiente = capa_de_salida
         self.capas.append(capa_de_salida)
       
 
@@ -99,7 +100,7 @@ class Red():
         for i in range(len(self.capas)-1, 0, -1):
             capa = self.capas[i]
             if (capa.tipo != Tipo_de_capa.entrada):#
-                errores_capa = capa.calcular_error(salida_deseada, errores_capa_posterior)
+                errores_capa = capa.calcular_error(salida_deseada, errores_capa_posterior)            
                 errores_capa_posterior = errores_capa.copy()
 
     def actualizar_pesos(self):

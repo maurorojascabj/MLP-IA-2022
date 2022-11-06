@@ -4,4 +4,4 @@ from decimal import *
 
 class derivada_1_lineal(interfaz_funcion):
     def calcular(x):
-        return Decimal(0.1)
+        return 0.1

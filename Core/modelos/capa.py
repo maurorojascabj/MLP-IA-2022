@@ -1,6 +1,7 @@
 from Core.enums.Tipo_de_capa import Tipo_de_capa
 from Core.modelos.neurona import Neurona
 from Core.funciones.lineal import lineal
+from Core.funciones.identidad import identidad
 import numpy as np
 from decimal import *
 
@@ -26,8 +27,9 @@ class Capa():
             for i in range(self.cant_neuronas):
                 self.matriz_w.append([])
                 for j in range(capa_anterior.cant_neuronas + 1):
-                    self.matriz_w[i].append(Decimal(np.round(np.random.uniform(-1.0, 1.0),6)     )    )
-         #   print(self.matriz_w)
+                    self.matriz_w[i].append(round(np.random.uniform(-0.1, 0.1),6)    )
+        
+           
             
              
         
