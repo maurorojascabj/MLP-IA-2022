@@ -19,7 +19,13 @@ class Red():
         self.vector_de_activacion = []
         self.matrices_w = matrices_w.copy()
         self.capas = []
-        self.error_patron = 0
+        self.acumulacion_i_errores_entrenamiento = 0
+        self.acumulacion_i_patrones_entrenamiento = 0
+        self.error_global_entrenamiento = 0
+
+        self.acumulacion_i_errores_validacion = 0
+        self.acumulacion_i_patrones_validacion = 0
+        self.error_global_validacion = 0
         
         if (matrices_w == []):
             self.inicializar_capas()
@@ -72,7 +78,7 @@ class Red():
     #mandar el patron a capa de entrada
         return self.capas[0].entrenar_patron(vector_patron)
 
-    def entrenar_red (self,  dataset_entrenamiento, dataset_validacion):  
+    def entrenar_red (self,  dataset_entrenamiento):  
         i=0
         for renglon in dataset_entrenamiento:
             vector_entrada=list(renglon[0]) 
@@ -80,46 +86,22 @@ class Red():
             salida_deseada =[int(x) for x in list_salida_deseada]
             ve=[int(x) for x in vector_entrada]
             salida_obtenida = self.entrenar_patron(ve) 
-           # print(salida_obtenida)
-            self.error_patron = self.calcular_error_patron(salida_obtenida, salida_deseada) 
-            #print(self.error_patron)       
-            self.calculo_y_propagacion_de_errores(salida_deseada)
-            
+            self.acumulacion_i_errores_entrenamiento += self.calcular_error_patron(salida_obtenida, salida_deseada)      
+            self.calculo_y_propagacion_de_errores(salida_deseada)            
             self.matrices_w = self.actualizar_pesos()
             print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
-             #con esta salida, calculo el error, y despues corrijo
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
             print(i)
+            self.acumulacion_i_patrones_entrenamiento+=1
+            self.error_global_entrenamiento=self.calcular_error_global(self.acumulacion_i_errores_entrenamiento, self.acumulacion_i_patrones_entrenamiento)
+        return self.error_global_entrenamiento
+        
        
-        guardar_pesos("archivos_w\caso1.txt",self.matrices_w)
+        #guardar_pesos("archivos_w\caso1.txt",self.matrices_w) esto iria una vez que se decida que termina el entrenamiento
 
 
-    def calculo_y_propagacion_de_errores(self, salida_deseada):
-        errores_capa_posterior = None
-        for i in range(len(self.capas)-1, 0, -1):
-            capa = self.capas[i]
-            if (capa.tipo != Tipo_de_capa.entrada):#
-                errores_capa = capa.calcular_error(salida_deseada, errores_capa_posterior)            
-                errores_capa_posterior = errores_capa.copy()
-
-    def actualizar_pesos(self):
-        matrices_w_actualizada = []     
-        for capa in self.capas:
-            if capa.tipo != Tipo_de_capa.entrada:
-                matrices_w_actualizada.append(capa.actualizar_pesos())
-        return matrices_w_actualizada    
     
-
-
-
-    def calcular_error_patron(self,salida_obtenida, salida_deseada):
-        sumatoria = 0
-        for i in range(len(salida_obtenida)):
-            sumatoria +=((salida_deseada[i]-salida_obtenida[i]) * self._func_transferencia_salida.calcular_derivada(salida_obtenida[i]))**2
-        return sumatoria/2        
-
-
     #>>>MECANISMOS DE CLASIFICACION   
     #recive un patron y devuelve la clasificacion calculada por la red    
     def clasificar_patron():
@@ -129,13 +111,52 @@ class Red():
         pass
 
     #>>>MECANISMOS DE ACTUALIZACION DE VARIABLES
-    def actualizar_vector_de_activacion():
-        pass
+    def calculo_y_propagacion_de_errores(self, salida_deseada):
+        errores_capa_posterior = None
+        for i in range(len(self.capas)-1, 0, -1):
+            capa = self.capas[i]
+            if (capa.tipo != Tipo_de_capa.entrada):#
+                errores_capa = capa.calcular_error(salida_deseada, errores_capa_posterior)            
+                errores_capa_posterior = errores_capa.copy()  
 
-    def calcular_error_global():
-        pass
+    def actualizar_pesos(self):
+        matrices_w_actualizada = []     
+        for capa in self.capas:
+            if capa.tipo != Tipo_de_capa.entrada:
+                matrices_w_actualizada.append(capa.actualizar_pesos())
+        return matrices_w_actualizada    
+    
+    
+    def calcular_error_patron(self,salida_obtenida, salida_deseada):
+        sumatoria = 0
+        for i in range(len(salida_obtenida)):
+            sumatoria +=((salida_deseada[i]-salida_obtenida[i]) * self._func_transferencia_salida.calcular_derivada(salida_obtenida[i]))**2
+        return sumatoria/2  
+
+
+    def calcular_error_global(self, acumulacion_i_errores, acumulacion_i_patrones):
+        error_global = acumulacion_i_errores / acumulacion_i_patrones
+        print("error global: "+str(error_global))
+        return error_global
 
 
     #matriz W tiene un vector de longitud = (100 + 1 por el umbral) por cada neurona de capa oculta
 
-
+    #>>>MECANISMOS DE VALIDACION 
+    #realiza una corrida (epoca) de entrenamiento con 1 dataset a especificar
+    def validar_red (self,  dataset_validacion):  
+        i=0
+        for renglon in dataset_validacion:
+            vector_entrada=list(renglon[0]) 
+            list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
+            salida_deseada =[int(x) for x in list_salida_deseada]
+            ve=[int(x) for x in vector_entrada]
+            salida_obtenida = self.entrenar_patron(ve) 
+            self.acumulacion_i_errores_validacion += self.calcular_error_patron(salida_obtenida, salida_deseada)      
+            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
+            #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
+            i+=1
+            print(i)
+            self.acumulacion_i_patrones_validacion+=1
+            self.error_global_validacion=self.calcular_error_global(self.acumulacion_i_errores_validacion, self.acumulacion_i_patrones_validacion)
+        return self.error_global_validacion

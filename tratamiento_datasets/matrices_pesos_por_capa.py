@@ -20,7 +20,7 @@ def obtener_pesos(archivo):
             
 
 def guardar_pesos(archivo, matrices_w):
-    with open(archivo, mode="a") as file:
+    with open(archivo, mode="w") as file:
         for i in range(len(matrices_w)):
             capa=matrices_w[i]
             for j in range(len(capa)):

@@ -32,8 +32,19 @@ dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archi
 #obtener_pesos("archivos_w\caso1.txt")
                 
 random.shuffle(dataset_entrenamiento)
-for i in range(50):
-    red.entrenar_red(dataset_entrenamiento,dataset_validacion)  
+random.shuffle(dataset_validacion)
+
+error_global_entrenamiento=9999
+error_global_validacion=9999
+umbral=0.1
+
+i=0
+while((error_global_entrenamiento>=error_global_validacion) or (error_global_entrenamiento>umbral)):
+    error_global_entrenamiento=red.entrenar_red(dataset_entrenamiento)
+    error_global_validacion= red.validar_red(dataset_validacion) 
+    
+    print("epoca: "+str(i))
+    i+= 1
     #print(red.error_global)
 
 
