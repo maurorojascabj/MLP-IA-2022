@@ -16,7 +16,7 @@ funcion_lineal = lineal()
 
 #matriz_w = [[[ 0.0, 0.4 , 0.5],[ 0.0, 0.6 ,  0.8]],[[ 0.0, 0.7 , 0.2 ]]]
 
-red  = Red([10,10], funcion_sigmoidal,funcion_lineal,0.5,0.9)
+red  = Red([10,10], funcion_sigmoidal,funcion_sigmoidal,0.5,0.9)
 
 porcentaje_testing = 0.2
 porcentaje_validacion_1 = 0.1
@@ -27,7 +27,8 @@ archivo="dataset1000.txt"
 tamanio_archivo= 1000
 dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
 
-#red.entrenar_red([['23','','1']],[])
+# red.entrenar_red(dataset_entrenamiento)
+# red.validar_red(dataset_validacion)
 
 #obtener_pesos("archivos_w\caso1.txt")
                 
@@ -35,13 +36,18 @@ random.shuffle(dataset_entrenamiento)
 random.shuffle(dataset_validacion)
 
 error_global_entrenamiento=9999
-error_global_validacion=9999
-umbral=0.1
+error_global_validacion_anterior=9999
+error_global_validacion=-1
+umbral=0.000001
 
 i=0
-while((error_global_entrenamiento>=error_global_validacion) or (error_global_entrenamiento>umbral)):
+while((error_global_entrenamiento>=error_global_validacion) and (error_global_entrenamiento>umbral)):
     error_global_entrenamiento=red.entrenar_red(dataset_entrenamiento)
-    error_global_validacion= red.validar_red(dataset_validacion) 
+    error_global_validacion= red.validar_red(dataset_validacion)
+   
+
+    print("error global entrenamiento: "+str(error_global_entrenamiento))
+    print("error global validacion: "+str(error_global_validacion))
     
     print("epoca: "+str(i))
     i+= 1

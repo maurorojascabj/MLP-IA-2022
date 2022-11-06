@@ -89,12 +89,13 @@ class Red():
             self.acumulacion_i_errores_entrenamiento += self.calcular_error_patron(salida_obtenida, salida_deseada)      
             self.calculo_y_propagacion_de_errores(salida_deseada)            
             self.matrices_w = self.actualizar_pesos()
-            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
+          #  print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
-            print(i)
+           # print(i)
             self.acumulacion_i_patrones_entrenamiento+=1
             self.error_global_entrenamiento=self.calcular_error_global(self.acumulacion_i_errores_entrenamiento, self.acumulacion_i_patrones_entrenamiento)
+           # print("error global entrenamiento: "+str(self.error_global_entrenamiento))
         return self.error_global_entrenamiento
         
        
@@ -136,7 +137,7 @@ class Red():
 
     def calcular_error_global(self, acumulacion_i_errores, acumulacion_i_patrones):
         error_global = acumulacion_i_errores / acumulacion_i_patrones
-        print("error global: "+str(error_global))
+        
         return error_global
 
 
@@ -153,10 +154,11 @@ class Red():
             ve=[int(x) for x in vector_entrada]
             salida_obtenida = self.entrenar_patron(ve) 
             self.acumulacion_i_errores_validacion += self.calcular_error_patron(salida_obtenida, salida_deseada)      
-            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
+           # print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
-            print(i)
+           # print(i)
             self.acumulacion_i_patrones_validacion+=1
             self.error_global_validacion=self.calcular_error_global(self.acumulacion_i_errores_validacion, self.acumulacion_i_patrones_validacion)
+       #     print("error global validacion: "+str(self.error_global_validacion))
         return self.error_global_validacion
