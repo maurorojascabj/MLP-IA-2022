@@ -5,7 +5,7 @@ from Core.funciones.interfaz_funcion import interfaz_funcion
 
 class lineal(interfaz_funcion):
     def calcular(self, x):
-        return x*0.01
+        return x*0.1
 
     def calcular_derivada(self, x):
         resultado= derivada_1_lineal.calcular(x)
