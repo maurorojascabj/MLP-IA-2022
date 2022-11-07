@@ -1,8 +1,9 @@
-from numpy import i0
+
 from Core.enums.Tipo_de_capa import Tipo_de_capa
 from Core.modelos.capa import Capa
 from Core.funciones.lineal import lineal
 from tratamiento_datasets.matrices_pesos_por_capa import guardar_pesos
+import numpy as np
 
 
 class Red():
@@ -112,11 +113,25 @@ class Red():
     
     #>>>MECANISMOS DE CLASIFICACION   
     #recive un patron y devuelve la clasificacion calculada por la red    
-    def clasificar_patron():
+ 
+    def clasificar_patron_umbral(self, patron):
         pass
 
-    def clasificar_patron_devolver_error():
-        pass
+
+
+    def clasificar_patron_maxarg(self, patron):
+
+        salida = {
+                "0": [1,0,0],
+                "1": [0,1,0],
+                "2": [0,0,1]
+                }
+
+        salida_obtenida = self.entrenar_patron(patron)     	
+        	
+        max = np.argmax(salida_obtenida)
+
+        return salida[str(max.T)]
 
     #>>>MECANISMOS DE ACTUALIZACION DE VARIABLES
     def calculo_y_propagacion_de_errores(self, salida_deseada):
