@@ -15,7 +15,7 @@ capas_ocultas=[5]
 funcion_salida=funcion_sigmoidal
 funcion_capa_oculta=funcion_lineal
 coef_aprendizaje=0.5
-term_momento=0.5
+term_momento=0.9
 
 
 red  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento)
@@ -25,9 +25,9 @@ porcentaje_validacion_1 = 0.1
 porcentaje_validacion_2 = 0.2
 porcentaje_validacion_3 = 0.3
 
-archivo="tratamiento_datasets\dataset500.txt"
-tamanio_archivo= 500
-dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_1)
+archivo="tratamiento_datasets\dataset1000.txt"
+tamanio_archivo= 1000
+dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
 
                 
 random.shuffle(dataset_entrenamiento)

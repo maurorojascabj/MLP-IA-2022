@@ -28,7 +28,10 @@ class Red():
         self.error_global_validacion = 0
 
         self.acumulacion_i_patrones_test=0
-        self.precision_test=0
+        self.exactitud_test=0
+        self.verdaderos_positivos=[0,0,0]
+        self.falsos_positivos=[0,0,0]
+        self.precision_test=[0,0,0]
         
         if (matrices_w == []):
             self.inicializar_capas()
@@ -179,14 +182,40 @@ class Red():
             salida_deseada =[int(x) for x in list_salida_deseada]
             ve=[int(x) for x in vector_entrada]
             salida_obtenida = self.entrenar_patron(ve)  
-
-            #aca deberia llamar a la funcion de clasificar patrones, ya que no calcula error
-            if(salida_obtenida==salida_deseada):
+            k=0
+            salida_obtenida_2=[0,0,0]
+            
+            if(salida_obtenida_2==salida_deseada):
                 aciertos+= 1
             print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
+            print(vector_entrada)
+            print("porcentaje distorsion: "+renglon[1])
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
             self.acumulacion_i_patrones_test+=1
-        self.precision_test=aciertos / self.acumulacion_i_patrones_test
+            self.calcular_positivos_precision_red(salida_obtenida, salida_deseada)
+        self.exactitud_test=aciertos / self.acumulacion_i_patrones_test
+        self.obtener_precision_por_letra()
            
-        return self.precision_test
+        return self.exactitud_test, self.precision_test
+    
+    def calcular_positivos_precision_red(self, salida_obtenida, salida_deseada):
+        if(salida_obtenida[0]==1 and salida_obtenida[1]==0 and salida_obtenida[2]==0):
+            if(salida_obtenida==salida_deseada):
+                self.verdaderos_positivos[0]+=1
+            else:
+                self.falsos_positivos[0]+=1
+        elif(salida_obtenida[0]==0 and salida_obtenida[1]==1 and salida_obtenida[2]==0):
+            if(salida_obtenida==salida_deseada):
+                self.verdaderos_positivos[1]+=1
+            else:
+                self.falsos_positivos[1]+=1
+        elif(salida_obtenida[0]==0 and salida_obtenida[1]==0 and salida_obtenida[2]==1):
+            if(salida_obtenida==salida_deseada):
+                self.verdaderos_positivos[2]+=1
+            else:
+                self.falsos_positivos[2]+=1
+
+    def obtener_precision_por_letra(self):
+        for i in range(3):
+            self.precision_test[i]=self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i])

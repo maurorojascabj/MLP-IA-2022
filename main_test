@@ -11,5 +11,8 @@ capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momen
 
 
 red  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso2.txt"))
-precision= red.test_red(dataset_testing)
+exactitud, precision= red.test_red(dataset_testing)
+
+print("precision: ")
 print(precision)
+print("exactitud en testing:" + str(exactitud))
