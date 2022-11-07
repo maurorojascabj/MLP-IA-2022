@@ -38,8 +38,8 @@ def distorsionarEjemplo(patron, porcMin, porcMax):
         distorsiones.append(posicADistorsionar)
         distorsiones.sort()
         j+=1
-    print("posic"+str(porcDistorsion))
-    print(distorsiones)
+   # print("posic"+str(porcDistorsion))
+    #print(distorsiones)
     distorsiones.clear()
     if(len(str(porcDistorsion))==2):
         nuevoPatron=nuevoPatron + " " + str(porcDistorsion)
@@ -53,12 +53,12 @@ def generarDataset(archivo,total):
     patronD="0000000000000000010000000001000000000100000111110000100001000010000100001000010000011111000000000000"
     patronF="0000000000000001100000001001000000100000001111100000001000000000100000000010000000001000000000000000"
     cantNoDistors=total // 10    # 10 % de ejemplos no deben tener distorsion
-    cantPorLetraNoDistors=round(cantNoDistors/3)  #cantidad de ejemplos no distorsionados por letra
+    cantPorLetraNoDistors=cantNoDistors//3  #cantidad de ejemplos no distorsionados por letra
     cantPorLetraDistors=(total-cantNoDistors)//3  #cantidad de ejemplos distorsionados por letra
 
 
     i=0
-    with open(archivo, mode="a") as file1:
+    with open(archivo, mode="w") as file1:
         #escribir ejemplos sin distorsion
         while i < cantPorLetraNoDistors:
             file1.write(patronB+" 00 100\n")
@@ -68,8 +68,9 @@ def generarDataset(archivo,total):
 
         i=0
         while i < (cantNoDistors-cantPorLetraNoDistors*3):
-            file1.write(random.choice([patronB,patronD,patronF])+" 00 001\n")
+            file1.write(patronF+" 00 001\n")
             i+=1
+            
 
         #escribir ejemplos con distorsion
         i=0
@@ -89,8 +90,8 @@ def generarDataset(archivo,total):
             i+=1
 
  
-nDataset=1000
-archivo="c:/Users/USER/Documents/ISI 5TO/INTELIGENCIA ARTIFICIAL/TPI/dataset1000.txt"
+nDataset=500
+archivo="tratamiento_datasets\dataset500.txt"
 generarDataset(archivo, nDataset)
-print(len(archivo))
+
  

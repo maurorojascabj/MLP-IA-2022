@@ -25,9 +25,9 @@ porcentaje_validacion_1 = 0.1
 porcentaje_validacion_2 = 0.2
 porcentaje_validacion_3 = 0.3
 
-archivo="dataset1000.txt"
-tamanio_archivo= 1000
-dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
+archivo="tratamiento_datasets\dataset500.txt"
+tamanio_archivo= 500
+dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_1)
 
                 
 random.shuffle(dataset_entrenamiento)
@@ -54,7 +54,7 @@ while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>
    
     print(str(error_global_entrenamiento) + " " +str(error_global_valid[2]))
     i+= 1
-
+print(i)
 red.escribir_pesos()
   
 
