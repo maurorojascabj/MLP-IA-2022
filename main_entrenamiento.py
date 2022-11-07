@@ -57,6 +57,14 @@ while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>
 print(i)
 red.escribir_pesos()
   
+patron1 = '0000000000000001100000001001000000100000001111100000001000000000100000000010000000001000000000000000' #001
+patron2 = '0000000000001000000000100000000010000000001111100000100001000010000100001000010000111110000000000000'#100
+patron3 = '0000000000000000010000000001000000000100000111110000100001000010000100001000010000011111000000000000' #010
+vector_entrada=list(patron1) 
+list_salida_deseada=list('010') #se convierte el string que forma el patron ingresado en un vector
+salida_deseada =[int(x) for x in list_salida_deseada]
+ve=[int(x) for x in vector_entrada]
+
 
 
 print("")
