@@ -1,0 +1,14 @@
+import random
+from Core.funciones.lineal import lineal
+from Core.funciones.sigmoidal import sigmoidal
+from Core.modelos.red import Red
+from main_entrenamiento import *
+from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
+
+dataset_testing=obtener_dataset_test()
+
+capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento=obtener_configuracion_red()
+
+
+red  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso2.txt"))
+precision= red.test_red(dataset_testing)

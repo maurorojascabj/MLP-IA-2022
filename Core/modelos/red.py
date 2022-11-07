@@ -26,6 +26,9 @@ class Red():
         self.acumulacion_i_errores_validacion = 0
         self.acumulacion_i_patrones_validacion = 0
         self.error_global_validacion = 0
+
+        self.acumulacion_i_patrones_test=0
+        self.precision_test=0
         
         if (matrices_w == []):
             self.inicializar_capas()
@@ -100,7 +103,7 @@ class Red():
         
        
     def escribir_pesos(self):    
-        guardar_pesos("archivos_w\caso1.txt",self.matrices_w) 
+        guardar_pesos("archivos_w\caso2.txt",self.matrices_w) 
 
 
     
@@ -163,3 +166,27 @@ class Red():
             self.error_global_validacion=self.calcular_error_global(self.acumulacion_i_errores_validacion, self.acumulacion_i_patrones_validacion)
        #     print("error global validacion: "+str(self.error_global_validacion))
         return self.error_global_validacion
+
+
+    #>>>MECANISMOS DE TESTING 
+    #realiza una corrida (epoca) de entrenamiento con 1 dataset a especificar
+    def test_red (self,  dataset_test):  
+        i=0
+        aciertos=0
+        for renglon in dataset_test:
+            vector_entrada=list(renglon[0]) 
+            list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
+            salida_deseada =[int(x) for x in list_salida_deseada]
+            ve=[int(x) for x in vector_entrada]
+            salida_obtenida = self.entrenar_patron(ve)  
+
+            #aca deberia llamar a la funcion de clasificar patrones, ya que no calcula error
+            if(salida_obtenida==salida_deseada):
+                aciertos+= 1
+            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
+            #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
+            i+=1
+            self.acumulacion_i_patrones_test+=1
+        self.precision_test=aciertos / self.acumulacion_i_patrones_test
+           
+        return self.precision_test
