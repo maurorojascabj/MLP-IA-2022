@@ -99,7 +99,8 @@ class Red():
         return self.error_global_entrenamiento
         
        
-        #guardar_pesos("archivos_w\caso1.txt",self.matrices_w) esto iria una vez que se decida que termina el entrenamiento
+    def escribir_pesos(self):    
+        guardar_pesos("archivos_w\caso1.txt",self.matrices_w) 
 
 
     

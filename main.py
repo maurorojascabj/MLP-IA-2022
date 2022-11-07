@@ -57,12 +57,13 @@ while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>
         error_global_valid[2]=red.validar_red(dataset_validacion)
    
 
-    print("error global entrenamiento: "+str(error_global_entrenamiento))
-    print("error global validacion: "+str(error_global_valid[2]))
+    print(str(error_global_entrenamiento) + " " +str(error_global_valid[2]))
     
-    print("epoca: "+str(i))
+
     i+= 1
-    #print(red.error_global)
+
+red.escribir_pesos()
+  
 
 
 print("")
