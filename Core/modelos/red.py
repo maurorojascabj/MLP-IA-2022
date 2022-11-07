@@ -205,7 +205,7 @@ class Red():
             print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
             print(vector_entrada)
             print("porcentaje distorsion: "+renglon[1])
-            #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
+            
             i+=1
             self.acumulacion_i_patrones_test+=1
             self.calcular_positivos_precision_red(salida_obtenida, salida_deseada)
