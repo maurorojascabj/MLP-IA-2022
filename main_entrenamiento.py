@@ -39,32 +39,42 @@ error_global_valid=[9999,9998,-1]
 umbral=0.001
 
 i=0
+exactitud_entrenamiento=0
+exactitud_validacion=0
 while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>=error_global_valid[2])) and (error_global_entrenamiento>umbral)):
-    error_global_entrenamiento=red.entrenar_red(dataset_entrenamiento)
+    error_global_entrenamiento, exactitud =red.entrenar_red(dataset_entrenamiento)
     
     if (i>1):
         error_global_valid[0]=error_global_valid[1]
         error_global_valid[1]=error_global_valid[2]
-        error_global_valid[2]=red.validar_red(dataset_validacion)
+        error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
     elif(i>0):
         error_global_valid[1]=error_global_valid[2]
-        error_global_valid[2]=red.validar_red(dataset_validacion)
+        error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
     else:
-        error_global_valid[2]=red.validar_red(dataset_validacion)
+        error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
    
-    print(str(error_global_entrenamiento) + " " +str(error_global_valid[2]))
+    exactitud_entrenamiento = exactitud
+    exactitud_validacion = exactitud_val
+    print(str(error_global_entrenamiento) + " " + str(error_global_valid[2] ))
     i+= 1
+    
+
+
 print(i)
+print(str(exactitud_entrenamiento) +" "+ str(exactitud_validacion)) 
+
 red.escribir_pesos()
   
-patron1 = '0000000000000001100000001001000000100000001111100000001000000000100000000010000000001000000000000000' #001
-patron2 = '0000000000001000000000100000000010000000001111100000100001000010000100001000010000111110000000000000'#100
-patron3 = '0000000000000000010000000001000000000100000111110000100001000010000100001000010000011111000000000000' #010
-vector_entrada=list(patron1) 
-list_salida_deseada=list('010') #se convierte el string que forma el patron ingresado en un vector
-salida_deseada =[int(x) for x in list_salida_deseada]
-ve=[int(x) for x in vector_entrada]
+# patron1 = '0000000000000001100000001001000000100000001111100000001000000000100000000010000000001000000000000000' #001 f
+# patron2 = '0000000000001000000000100000000010000000001111100000100001000010000100001000010000111110000000000000' #100 b
+# patron3 = '0000000000000000010000000001000000000100000111110000100001000010000100001000010000011111000000000000' #010 d
+# vector_entrada=list(patron1) 
+# list_salida_deseada=list('010') #se convierte el string que forma el patron ingresado en un vector
+# salida_deseada =[int(x) for x in list_salida_deseada]
+# ve=[int(x) for x in vector_entrada]
 
+# red.clasificar_patron_maxarg(ve)
 
 
 print("")
