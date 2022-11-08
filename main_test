@@ -2,7 +2,8 @@ import random
 from Core.funciones.lineal import lineal
 from Core.funciones.sigmoidal import sigmoidal
 from Core.modelos.red import Red
-from main_entrenamiento import *
+from main_entrenamiento import obtener_configuracion_red
+from main_entrenamiento import obtener_dataset_test
 from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
 
 dataset_testing=obtener_dataset_test()

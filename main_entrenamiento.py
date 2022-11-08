@@ -6,6 +6,7 @@ from Core.funciones.lineal import lineal
 from Core.funciones.sigmoidal import sigmoidal
 from Core.modelos.red import Red
 from tratamiento_datasets.dividir_dataset import dividir_dataset
+from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
 
 
 funcion_sigmoidal = sigmoidal()
@@ -32,6 +33,10 @@ dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archi
                 
 random.shuffle(dataset_entrenamiento)
 random.shuffle(dataset_validacion)
+
+
+
+
 
 error_global_entrenamiento=9999
 error_global_valid=[9999,9998,-1]
@@ -61,8 +66,8 @@ while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>
     
 
 
-print(i)
-print(str(exactitud_entrenamiento) +" "+ str(exactitud_validacion)) 
+print("cant epocas:" + str(i))
+print("exactitud entrenamiento: "+str(exactitud_entrenamiento) +" exactitud validacion: "+ str(exactitud_validacion)) 
 
 red.escribir_pesos()
   
@@ -77,11 +82,12 @@ red.escribir_pesos()
 # red.clasificar_patron_maxarg(ve)
 
 
-print("")
+print("--------TESTING-------------")
 
 
-def obtener_dataset_test():
-    return dataset_testing
+red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso2.txt"))
+exactitud, precision= red2.test_red(dataset_testing)
 
-def obtener_configuracion_red():
-    return capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento
+print("precision: ")
+print(precision)
+print("exactitud en testing:" + str(exactitud))
