@@ -234,9 +234,10 @@ class Red():
 
             if(salida_maxarg==salida_deseada):
                 aciertos+= 1
-            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_maxarg))
-            print(vector_entrada)
-            print("porcentaje distorsion: "+renglon[1])
+            else:     
+                print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_maxarg))
+                print(vector_entrada)
+                print("porcentaje distorsion: "+renglon[1])
             
             i+=1
             self.acumulacion_i_patrones_test+=1
