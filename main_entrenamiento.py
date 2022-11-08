@@ -7,7 +7,8 @@ from Core.funciones.sigmoidal import sigmoidal
 from Core.modelos.red import Red
 from tratamiento_datasets.dividir_dataset import dividir_dataset
 from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
-
+import os
+os.system('cls||clear')
 
 funcion_sigmoidal = sigmoidal()
 funcion_lineal = lineal()
@@ -26,14 +27,14 @@ porcentaje_validacion_1 = 0.1
 porcentaje_validacion_2 = 0.2
 porcentaje_validacion_3 = 0.3
 
-archivo="tratamiento_datasets\dataset1000.txt"
-tamanio_archivo= 1000
-dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
+archivo="tratamiento_datasets\dataset100.txt"
+tamanio_archivo= 100
+dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_2)
 
                 
 random.shuffle(dataset_entrenamiento)
 random.shuffle(dataset_validacion)
-
+random.shuffle(dataset_testing)
 
 
 
@@ -43,17 +44,17 @@ error_global_valid=[9999,9998,-1]
 
 umbral=0.001
 
-i=0
+k=0
 exactitud_entrenamiento=0
 exactitud_validacion=0
-while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>=error_global_valid[2])) and (error_global_entrenamiento>umbral)):
+while(error_global_entrenamiento>umbral):
     error_global_entrenamiento, exactitud =red.entrenar_red(dataset_entrenamiento)
     
-    if (i>1):
+    if (k>1):
         error_global_valid[0]=error_global_valid[1]
         error_global_valid[1]=error_global_valid[2]
         error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
-    elif(i>0):
+    elif(k>0):
         error_global_valid[1]=error_global_valid[2]
         error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
     else:
@@ -62,11 +63,12 @@ while(((error_global_valid[0]>=error_global_valid[1]) or (error_global_valid[1]>
     exactitud_entrenamiento = exactitud
     exactitud_validacion = exactitud_val
     print(str(error_global_entrenamiento) + " " + str(error_global_valid[2] ))
-    i+= 1
+    k+= 1
+    #print("k: "+str(k))
     
 
 
-print("cant epocas:" + str(i))
+print("cant epocas:" + str(k))
 print("exactitud entrenamiento: "+str(exactitud_entrenamiento) +" exactitud validacion: "+ str(exactitud_validacion)) 
 
 red.escribir_pesos()
@@ -85,7 +87,7 @@ red.escribir_pesos()
 print("--------TESTING-------------")
 
 
-red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso2.txt"))
+red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_100_13.txt"))
 exactitud, precision= red2.test_red(dataset_testing)
 
 print("precision: ")
