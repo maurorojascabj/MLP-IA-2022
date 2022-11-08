@@ -33,6 +33,10 @@ class Red():
         self.verdaderos_positivos=[0,0,0]
         self.falsos_positivos=[0,0,0]
         self.precision_test=[0,0,0]
+
+        self.exactitud_entrenamiento = 0
+        self.exactitud_validacion = 0
+
         
         if (matrices_w == []):
             self.inicializar_capas()
@@ -70,9 +74,7 @@ class Red():
             self.capas.append(nueva_capa)
             capa_ant.capa_siguiente = nueva_capa
 
-            capa_ant =  nueva_capa
-
-       
+            capa_ant =  nueva_capa       
 
         capa_de_salida = Capa(self._cant_neuronas_salida, self._func_transferencia_salida, capa_ant, None, Tipo_de_capa.salida, self._coef_aprendizaje, self._term_momento, self.matrices_w[len(self.matrices_w) - 1])   
         capa_ant.capa_siguiente = capa_de_salida
@@ -87,24 +89,32 @@ class Red():
 
     def entrenar_red (self,  dataset_entrenamiento):  
         i=0
+        desaciertos_entrenamiento = 0
         for renglon in dataset_entrenamiento:
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
             ve=[int(x) for x in vector_entrada]
             salida_obtenida = self.entrenar_patron(ve) 
+            salida_codificada = self.codificar_salida(salida_obtenida)
             self.acumulacion_i_errores_entrenamiento += self.calcular_error_patron(salida_obtenida, salida_deseada)      
             self.calculo_y_propagacion_de_errores(salida_deseada)            
             self.matrices_w = self.actualizar_pesos()
+
+            if(salida_codificada!=salida_deseada):
+                desaciertos_entrenamiento+= 1
+
           #  print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
            # print(i)
-            self.acumulacion_i_patrones_entrenamiento+=1
-            self.error_global_entrenamiento=self.calcular_error_global(self.acumulacion_i_errores_entrenamiento, self.acumulacion_i_patrones_entrenamiento)
+            self.acumulacion_i_patrones_entrenamiento+=1           
+            
            # print("error global entrenamiento: "+str(self.error_global_entrenamiento))
-        return self.error_global_entrenamiento
-        
+
+        self.error_global_entrenamiento=self.calcular_error_global(self.acumulacion_i_errores_entrenamiento, self.acumulacion_i_patrones_entrenamiento)
+        self.exactitud_entrenamiento = (len(dataset_entrenamiento) - desaciertos_entrenamiento) /len(dataset_entrenamiento)*100
+        return self.error_global_entrenamiento, self.exactitud_entrenamiento
        
     def escribir_pesos(self):    
         guardar_pesos("archivos_w\caso2.txt",self.matrices_w) 
@@ -132,6 +142,21 @@ class Red():
         max = np.argmax(salida_obtenida)
 
         return salida[str(max.T)]
+
+
+     
+
+    def codificar_salida(self, salida_obtenida):
+
+        salida = {
+                "0": [1,0,0],
+                "1": [0,1,0],
+                "2": [0,0,1]
+                } 	
+        	
+        max = np.argmax(salida_obtenida)
+
+        return salida[str(max.T)]   
 
     #>>>MECANISMOS DE ACTUALIZACION DE VARIABLES
     def calculo_y_propagacion_de_errores(self, salida_deseada):
@@ -169,21 +194,29 @@ class Red():
     #realiza una corrida (epoca) de entrenamiento con 1 dataset a especificar
     def validar_red (self,  dataset_validacion):  
         i=0
+        desaciertos_validacion = 0 
         for renglon in dataset_validacion:
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
             ve=[int(x) for x in vector_entrada]
             salida_obtenida = self.entrenar_patron(ve) 
-            self.acumulacion_i_errores_validacion += self.calcular_error_patron(salida_obtenida, salida_deseada)      
+            salida_codificada = self.codificar_salida(salida_obtenida)
+            self.acumulacion_i_errores_validacion += self.calcular_error_patron(salida_obtenida, salida_deseada)  
+
+            if(salida_codificada!=salida_deseada):
+                desaciertos_validacion+= 1
+
            # print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
             #[int(x) for x in vector_entrada] convierte cada caracter (0 o 1) del vector en un entero
             i+=1
            # print(i)
             self.acumulacion_i_patrones_validacion+=1
-            self.error_global_validacion=self.calcular_error_global(self.acumulacion_i_errores_validacion, self.acumulacion_i_patrones_validacion)
+
        #     print("error global validacion: "+str(self.error_global_validacion))
-        return self.error_global_validacion
+        self.error_global_validacion=self.calcular_error_global(self.acumulacion_i_errores_validacion, self.acumulacion_i_patrones_validacion)
+        self.exactitud_validacion = (len(dataset_validacion) - desaciertos_validacion)/len(dataset_validacion)*100
+        return self.error_global_validacion, self.exactitud_validacion 
 
 
     #>>>MECANISMOS DE TESTING 
@@ -195,20 +228,19 @@ class Red():
             vector_entrada=list(renglon[0]) 
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
-            ve=[int(x) for x in vector_entrada]
-            salida_obtenida = self.entrenar_patron(ve)  
+            ve=[int(x) for x in vector_entrada]           
+            salida_maxarg = self.clasificar_patron_maxarg(ve)
             k=0
-            salida_obtenida_2=[0,0,0]
-            
-            if(salida_obtenida_2==salida_deseada):
+
+            if(salida_maxarg==salida_deseada):
                 aciertos+= 1
-            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_obtenida))
+            print("deseada ",str(salida_deseada)+" - obtenida "+str(salida_maxarg))
             print(vector_entrada)
             print("porcentaje distorsion: "+renglon[1])
             
             i+=1
             self.acumulacion_i_patrones_test+=1
-            self.calcular_positivos_precision_red(salida_obtenida, salida_deseada)
+            self.calcular_positivos_precision_red(salida_maxarg, salida_deseada)
         self.exactitud_test=aciertos / self.acumulacion_i_patrones_test
         self.obtener_precision_por_letra()
            
