@@ -117,7 +117,7 @@ class Red():
         return self.error_global_entrenamiento, self.exactitud_entrenamiento
        
     def escribir_pesos(self):    
-        guardar_pesos("archivos_w\caso2.txt",self.matrices_w) 
+        guardar_pesos("archivos_w\caso_100_13.txt",self.matrices_w) 
 
 
     
@@ -266,4 +266,7 @@ class Red():
 
     def obtener_precision_por_letra(self):
         for i in range(3):
-            self.precision_test[i]=self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i])
+            if(self.verdaderos_positivos[i]>0 or self.falsos_positivos[i]>0):
+                self.precision_test[i]=self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i])
+            else:
+                self.precision_test[i]=0
