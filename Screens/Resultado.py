@@ -1,4 +1,5 @@
 import tkinter as tkinter
+from tkinter import Button
 from Styles import *
 from UI.FrameUI import *
 from UI.Pattern import *
@@ -34,8 +35,6 @@ class Resultado():
 
         valorDistorsion = distorsion[:-1] #Elimino el caracter %
         valorDistorsion = int(valorDistorsion)
-        print("valorD: " + str(valorDistorsion))
-        print("patronSeleccionado: " + str(patronSeleccionado))
 
         self.frameContenedor = FrameUI(window, 0)
         self.frameContenedor.setLocation(200, 100)
@@ -71,7 +70,15 @@ class Resultado():
             newMatriz = matrizF.copy()
             newMatriz = self.setDistorsion(newMatriz, valorDistorsion)
 
-        self.patternDistorsionado.drawPattern(self.frameDistorsionado, cellStyles["bgCell"], newMatriz)     
+        self.patternDistorsionado.drawPattern(self.frameDistorsionado, cellStyles["bgCell"], newMatriz)
+
+        self.getClassPatron = Button(self.frameContenedor, text="Clasificador")
+        self.getClassPatron.configure(width=botonGetClassPatronStyles["width"], height=botonGetClassPatronStyles["height"], bg=botonGetClassPatronStyles["bg"], font=("Arial Bold", 14))
+        self.getClassPatron.place(x=botonGetClassPatronStyles["coordenadaX"], y=botonGetClassPatronStyles["coordenadaY"])
+
+        self.textResultado = Text("RESULTADO:")
+        self.textResultado.createUI(self.frameContenedor, ("Arial Bold", 15))
+        self.textResultado.setLocation(textResultadoStyles["coordenadaX"], textResultadoStyles["coordenadaY"])
 
     def setDistorsion(self, matriz, repetitions):
         newMatriz = matriz.copy()
