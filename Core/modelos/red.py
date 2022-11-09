@@ -122,6 +122,7 @@ class Red():
 
     def escribir_pesos(self):    #se escribe los pesos wi obtenidos del entrenamiento en archivo
         guardar_pesos("archivos_w\caso_1000_14.txt",self.matrices_w) 
+        guardar_pesos("archivos_w\caso_500_2.txt",self.matrices_w) 
 
 
     
