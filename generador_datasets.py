@@ -80,6 +80,6 @@ def generarDataset(archivo,total):
 
  
 nDataset=100
-archivo="c:/Users/USER/Documents/ISI 5TO/INTELIGENCIA ARTIFICIAL/TPI/prueba1.txt"
+archivo="//home/mauro/Escritorio/prueba1.txt"
 generarDataset(archivo, nDataset)
  
