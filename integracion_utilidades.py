@@ -8,7 +8,7 @@ os.system('cls||clear')
 
 
 def obtener_red_precargada(dic):
-    red = seleccionar_archivo_y_generar_red(dic['tam_dataset'],dic['capas_config'],dic['coef_aprendizaje'],dic['term_momento'],dic['porc_validacion'])
+    red = seleccionar_archivo_y_generar_red(dic['tam_dataset'], dic['capas_config'], dic['term_momento'], dic['porc_validacion'])
     return red
 
 
@@ -22,11 +22,11 @@ def obtener_red_precargada(dic):
 # }
 
 
-def seleccionar_archivo_y_generar_red(self, tam_dataset, capas_confi, term_momento, porc_validacion ):
+def seleccionar_archivo_y_generar_red(tam_dataset, capas_confi, term_momento, porc_validacion ):
   
     funcion_salida = sigmoidal()
     funcion_ocultas = lineal()
-    coef_aprend = 0,5
+    coef_aprend = 0.5
     archivo  = ""
 
     if tam_dataset == 100:
