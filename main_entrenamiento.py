@@ -13,11 +13,11 @@ os.system('cls||clear')
 funcion_sigmoidal = sigmoidal()
 funcion_lineal = lineal()
 
-capas_ocultas=[5,5]
+capas_ocultas=[10]
 funcion_salida=funcion_sigmoidal
 funcion_capa_oculta=funcion_lineal
 coef_aprendizaje=0.5
-term_momento=0.5
+term_momento=0.9
 
 
 red  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento)
@@ -27,9 +27,9 @@ porcentaje_validacion_1 = 0.1
 porcentaje_validacion_2 = 0.2
 porcentaje_validacion_3 = 0.3
 
-archivo="tratamiento_datasets\dataset100.txt"
-tamanio_archivo= 100
-dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_1)
+archivo="tratamiento_datasets\dataset1000.txt"
+tamanio_archivo= 1000
+dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_2)
 
                 
 random.shuffle(dataset_entrenamiento)
@@ -62,17 +62,17 @@ print("cantidad de epocas:" + str(k))
 #     print("se aplico early stopping")
 #     red.aplicar_early_stopping
 
-print("exactitud entrenamiento: "+str(exactitud_entrenamiento) +" exactitud validacion: "+ str(exactitud_validacion)) 
+print("exactitud entrenamiento: "+str(exactitud_entrenamiento) +" - exactitud validacion: "+ str(exactitud_validacion)) 
 
 red.escribir_pesos()
   
 
 
 
-print("--------TESTING-------------")
+print("\n\n--------TESTING-------------")
 
 
-red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_100_18.txt"))
+red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_1000_14.txt"))
 exactitud, precision= red2.test_red(dataset_testing)
 
 print("precision: ")
