@@ -23,15 +23,10 @@ class Capa():
             self.matriz_w =[]
 
         if (self.matriz_w == [] and self.tipo != Tipo_de_capa.entrada):
-            #self.matriz_w = np.round(np.random.randn(self.cant_neuronas , capa_anterior.cant_neuronas + 1),3) #en pos 0 va el umbral 
             for i in range(self.cant_neuronas):
                 self.matriz_w.append([])
                 for j in range(capa_anterior.cant_neuronas + 1):
                     self.matriz_w[i].append(round(np.random.uniform(-0.1, 0.1),6)    )
-        
-           
-            
-             
         
         
         self.neuronas = []
@@ -49,17 +44,9 @@ class Capa():
 
     def actualizar_pesos (self):
         self.matriz_w = []
-        for i in range(len(self.neuronas)):  
-            #print("neurona "+ str(i) + "capa de " + str(self.cant_neuronas))          
+        for i in range(len(self.neuronas)):    
             self.neuronas[i].actualizar_vector_pesos()        
             self.matriz_w.append(self.neuronas[i].vector_w) 
-        
-                
-
-        # if(self.tipo != Tipo_de_capa.salida):
-        #     matrices_w_actualizada_red.append(self.capa_siguiente.actualizar_pesos()) 
-        #     return  matrices_w_actualizada_red.append(self.matriz_w) 
-        # else:
         return  self.matriz_w     
 
 
@@ -84,12 +71,7 @@ class Capa():
 
         self.errores_capa = errores_capa.copy()
         
-        return self.errores_capa
-        # if (self.capa_anterior != Tipo_de_capa.entrada):
-        #     self.capa_anterior.calcular_error(None, self.errores_capa) #se propaga hacia atras
-        # else:  
-        #     return   
-            #matriz_w_actualizada_red = self.actualizar_pesos()  # cuando es capa de entrada dejo de propagar errores    
+        return self.errores_capa   
 
 
     def neurona_i_pesos_a_capa_posterior(self, pos_neurona ):
@@ -99,7 +81,6 @@ class Capa():
         return vector_pesos   
 
  
-
     def entrenar_patron (self, vector_entradas): #estamos trabajando con 1 renglon del archivo = 1 patron de entrada
         salida_de_la_capa = [] 
         entrada_neurona_de_entrada = []
