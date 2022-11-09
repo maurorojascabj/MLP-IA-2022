@@ -3,6 +3,7 @@ from Core.funciones.lineal import lineal
 from Core.funciones.sigmoidal import sigmoidal
 from Core.modelos.red import Red
 from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
+from tratamiento_datasets.dividir_dataset import dividir_dataset
 import os
 os.system('cls||clear')
 
@@ -17,9 +18,53 @@ def entrenar_y_obtener_red(dic):
     if dic['func_de_transferencia'] == 0:
         funcion_transf_ocultas = lineal()
     else:
-        funcion_transf_ocultas = sigmoidal()    
+        funcion_transf_ocultas = sigmoidal() 
 
     red = Red(dic['capas_config'],sigmoidal(),funcion_transf_ocultas, dic['coef_aprendizaje'] ,dic['term_momento'])
+
+    porcentaje_validacion = (dic['porc_validacion'])/100
+    porcentaje_testing = 0.2
+    if dic['tam_dataset'] == 100:
+       archivo="tratamiento_datasets\dataset100.txt"
+       tamanio_archivo= 100  
+    elif dic['tam_dataset'] == 500:
+        archivo="tratamiento_datasets\dataset500.txt"
+        tamanio_archivo= 500  
+    else:
+        archivo="tratamiento_datasets\dataset1000.txt"  
+        tamanio_archivo= 1000  
+
+  
+    dataset_entrenamiento, dataset_testing, dataset_validacion= dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion)
+
+                
+    random.shuffle(dataset_entrenamiento)
+    random.shuffle(dataset_validacion)
+    random.shuffle(dataset_testing)
+
+    error_global_entrenamiento=9999
+    error_global_valid=0
+    umbral=0.001
+    k=0
+    exactitud_entrenamiento=0
+    exactitud_validacion=0
+
+    while(error_global_entrenamiento>umbral):  #se realizan epocas mientras no se llegue al umbral de error de entrenamiento
+        error_global_entrenamiento, exactitud =red.entrenar_red(dataset_entrenamiento)
+        error_global_valid,exactitud_val=red.validar_red(dataset_validacion)
+    
+        print(str(error_global_entrenamiento) + " " + str(error_global_valid ))
+        k+= 1
+   
+        exactitud_entrenamiento = exactitud
+        exactitud_validacion = exactitud_val
+
+        print("cantidad de epocas:" + str(k))
+
+        print("exactitud entrenamiento: "+str(exactitud_entrenamiento) +" - exactitud validacion: "+ str(exactitud_validacion)) 
+
+        red.escribir_pesos()
+
     return red
 
 
