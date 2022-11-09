@@ -48,8 +48,6 @@ titleMainStyles={
     "coordenadaY": 30
 }
 
-
-
 textMenuStyles={
     "coordenadaX": 500,
     "coordenadaY": 150
@@ -135,6 +133,19 @@ radTerminoMomentoUnoStyles={
 radTerminoMomentoDosStyles={
     "coordenadaX": 930,
     "coordenadaY": 470
+}
+
+botonGetClassPatronStyles={
+    "coordenadaX": 450,
+    "coordenadaY": 380,
+    "width": 15,
+    "height": 2,
+    "bg": primaryColor["color"]
+}
+
+textResultadoStyles={
+    "coordenadaX": 220,
+    "coordenadaY": 500
 }
 
 
