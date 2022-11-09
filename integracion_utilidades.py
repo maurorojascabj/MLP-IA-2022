@@ -144,7 +144,7 @@ def seleccionar_archivo_y_generar_red(tam_dataset, capas_confi, term_momento, po
                 elif porc_validacion == 20 :
                     archivo = "archivos_w\caso_100_15.txt"
                 else: #30
-                    archivo = "archivos_w\caso_100_23.txt"  
+                    archivo = "archivos_w\caso_100_23_b.txt"  
         else: #[10,10]
 
             if term_momento == 0.5:
