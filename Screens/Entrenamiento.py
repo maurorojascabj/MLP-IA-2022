@@ -69,7 +69,7 @@ class Entrenamiento():
         self.radTerminoMomentoDos = Radiobutton(self.window, text='2 (dos) capas', value="2", variable=valueTerminoMomento)
         self.radTerminoMomentoDos.place(x=radTerminoMomentoDosStyles["coordenadaX"], y=radTerminoMomentoDosStyles["coordenadaY"])
 
-        self.botonGenerarRed = Button(self.window, text="Crear red") #generateDistorsion(comboBox.getValues(), matriz)
+        self.botonGenerarRed = Button(self.window, text="Crear red")
         self.botonGenerarRed.configure(width=botonGenerarRedStyles["width"], bg=botonGenerarRedStyles["bg"])
         self.botonGenerarRed.place(x=botonGenerarRedStyles["coordenadaX"], y=botonGenerarRedStyles["coordenadaY"])
 
@@ -91,40 +91,9 @@ class Entrenamiento():
         pattern = Pattern()
         value = value[:-1] #Elimino el caracter %
         value = int(value)
-        # print("value ", value)
         self.textPatronDistorsionado = Text("Patrón distorsionado")
         self.textPatronDistorsionado.createUI(self.window, ("Arial Bold", 15))
         self.textPatronDistorsionado.setLocation(titlePatronDistorsionadoStyles["coordenadaX"], titlePatronDistorsionadoStyles["coordenadaY"])
         newMatriz = []
-        newMatriz = self.setDistorsion(matriz, value) #matriz B, valor 10
-        # print("newMatriz ", newMatriz)
+        newMatriz = self.setDistorsion(matriz, value)
         pattern.drawPattern(frame, cellStyles["bgCell"], newMatriz)
-
-    # def crearPantalla(self, matrizB = None, matrizC = None, matrizF = None ):
-        # print(radioButtonSeleccionado)
-        # if radioButtonSeleccionado == 1 or radioButtonSeleccionado == 2 or radioButtonSeleccionado == 3:
-        #     matriz = []
-        #     if radioButtonSeleccionado == 1:
-        #         destroyElement(frameD)
-        #         destroyElement(frameF)
-        #         matriz = matrizB.copy()
-        #         frameB.setLocation(frameSeleccionado["coordenadaX"], frameSeleccionado["coordenadaY"])
-        #     elif radioButtonSeleccionado == 2:
-        #         destroyElement(frameB)
-        #         destroyElement(frameF)
-        #         matriz = matrizC.copy()
-        #         frameD.setLocation(frameSeleccionado["coordenadaX"], frameSeleccionado["coordenadaY"])
-        #     elif radioButtonSeleccionado == 3:
-        #         destroyElement(frameB)
-        #         destroyElement(frameD)
-        #         matriz = matrizF.copy()
-        #         frameF.setLocation(frameSeleccionado["coordenadaX"], frameSeleccionado["coordenadaY"])
-
-        #     self.textPatronOriginal = Text("Patrón original")
-        #     self.textPatronOriginal.createUI(self.window, ("Arial Bold", 15))
-        #     self.textPatronOriginal.setLocation(titlePatronSeleccionadoStyles["coordenadaX"], titlePatronSeleccionadoStyles["coordenadaY"])
-            
-        #     buttonMain.destroy()
-        #     rad1.destroy()
-        #     rad2.destroy()
-        #     rad3.destroy()
