@@ -3,10 +3,13 @@ from UI.FrameUI import *
 from UI.Text import *
 from Styles import *
 from Screens.SeleccionPatron import *
+from integracion_utilidades import *
+from Core.modelos.red import Red
 
 class Red(Button):
     def __init__(self, window):
         super().__init__()
+        self.red = None
         self.window = window
         self.frameContenedor = FrameUI(window, 0)
         self.frameContenedor.setLocation(250, 120)
@@ -102,6 +105,7 @@ class Red(Button):
     
     def redirectPantalla(self, datos):
         self.frameContenedor.destroy()
+        self.red = obtener_red_precargada(datos) # self.red.clasificar_patron_maxarg(patron_distorsionado)
         pantallaPatron = SeleccionPatron(self.window)
 
     ## setDatos()
