@@ -12,6 +12,19 @@ def obtener_red_precargada(dic):
     return red
 
 
+def entrenar_y_obtener_red(dic):
+
+    if dic['func_de_transferencia'] == 0:
+        funcion_transf_ocultas = lineal()
+    else:
+        funcion_transf_ocultas = sigmoidal()    
+
+    red = Red(dic['capas_config'],sigmoidal(),funcion_transf_ocultas, dic['coef_aprendizaje'] ,dic['term_momento'])
+    return red
+
+
+
+
 # self.diccionarioDatos = {
 #     "tam_dataset": "",
 #     "capas_config": [],
