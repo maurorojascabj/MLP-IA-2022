@@ -13,11 +13,11 @@ os.system('cls||clear')
 funcion_sigmoidal = sigmoidal()
 funcion_lineal = lineal()
 
-capas_ocultas=[5]
+capas_ocultas=[5,5]
 funcion_salida=funcion_sigmoidal
 funcion_capa_oculta=funcion_lineal
 coef_aprendizaje=0.5
-term_momento=0.9
+term_momento=0.5
 
 
 red  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento)
@@ -29,65 +29,50 @@ porcentaje_validacion_3 = 0.3
 
 archivo="tratamiento_datasets\dataset100.txt"
 tamanio_archivo= 100
-dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_2)
+dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo, tamanio_archivo, porcentaje_testing, porcentaje_validacion_1)
 
                 
 random.shuffle(dataset_entrenamiento)
 random.shuffle(dataset_validacion)
 random.shuffle(dataset_testing)
 
-
-
-
 error_global_entrenamiento=9999
-error_global_valid=[9999,9998,-1]
-
+error_global_valid=0
 umbral=0.001
-
 k=0
 exactitud_entrenamiento=0
 exactitud_validacion=0
-while(error_global_entrenamiento>umbral):
+
+#paciencia=30 #se aplica early stopping si luego de 10 epocas no mejora el error global de validacion
+
+
+while(error_global_entrenamiento>umbral):  #se realizan epocas mientras no se llegue al umbral de error de entrenamiento
     error_global_entrenamiento, exactitud =red.entrenar_red(dataset_entrenamiento)
+    error_global_valid,exactitud_val=red.validar_red(dataset_validacion)
     
-    if (k>1):
-        error_global_valid[0]=error_global_valid[1]
-        error_global_valid[1]=error_global_valid[2]
-        error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
-    elif(k>0):
-        error_global_valid[1]=error_global_valid[2]
-        error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
-    else:
-        error_global_valid[2],exactitud_val=red.validar_red(dataset_validacion)
+    print(str(error_global_entrenamiento) + " " + str(error_global_valid ))
+    k+= 1
    
     exactitud_entrenamiento = exactitud
     exactitud_validacion = exactitud_val
-    print(str(error_global_entrenamiento) + " " + str(error_global_valid[2] ))
-    k+= 1
-    #print("k: "+str(k))
-    
 
+print("cantidad de epocas:" + str(k))
 
-print("cant epocas:" + str(k))
+# if(cont>=paciencia): #si se supera la paciencia, se aplica early stopping
+#     print("se aplico early stopping")
+#     red.aplicar_early_stopping
+
 print("exactitud entrenamiento: "+str(exactitud_entrenamiento) +" exactitud validacion: "+ str(exactitud_validacion)) 
 
 red.escribir_pesos()
   
-# patron1 = '0000000000000001100000001001000000100000001111100000001000000000100000000010000000001000000000000000' #001 f
-# patron2 = '0000000000001000000000100000000010000000001111100000100001000010000100001000010000111110000000000000' #100 b
-# patron3 = '0000000000000000010000000001000000000100000111110000100001000010000100001000010000011111000000000000' #010 d
-# vector_entrada=list(patron1) 
-# list_salida_deseada=list('010') #se convierte el string que forma el patron ingresado en un vector
-# salida_deseada =[int(x) for x in list_salida_deseada]
-# ve=[int(x) for x in vector_entrada]
 
-# red.clasificar_patron_maxarg(ve)
 
 
 print("--------TESTING-------------")
 
 
-red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_100_13.txt"))
+red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_100_18.txt"))
 exactitud, precision= red2.test_red(dataset_testing)
 
 print("precision: ")
