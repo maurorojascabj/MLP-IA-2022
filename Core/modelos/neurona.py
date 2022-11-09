@@ -21,9 +21,7 @@ class Neurona():
     #Yn f(Net)
     #trata el string de entrada, donde cada dígito es la salida de una neurona de la capa anterior (en capa de entrada no, es una de las 100 entradas)
     def calcular_salida(self, vector_valores_entrada):
-        #tratatar patron
-       # print("vector entrada: ")
-       # print(vector_valores_entrada)
+        #tratar patron
         self.calcular_entrada_total( self._cant_neuronas_capa_anterior ,vector_valores_entrada)
        # print("net: "+ str(self.net))
         self.salida =  self._funcion_transferencia.calcular(self.net)
@@ -58,7 +56,6 @@ class Neurona():
 
 
     def actualizar_vector_pesos(self):
-        #print(self.vector_w)
         #w_o se trata por separado con entrada = 1
         if self.vector_delta_w == []:
            w_0_siguiente = self.vector_w[0] + self._coef_aprendizaje * self.error * 1
@@ -68,8 +65,7 @@ class Neurona():
             self.vector_delta_w[0] = w_0_siguiente - self.vector_w[0]
 
         self.vector_w[0] = w_0_siguiente
-    
-        #print(str(Decimal(w_0_siguiente))+"  "+str(self.vector_w[0])) 
+     
         for i in range(1, len(self.vector_valores_entrada)):
             if self.vector_delta_w == [] or  len(self.vector_delta_w) != len(self.vector_w):
                 w_siguiente = self.vector_w[i] + self._coef_aprendizaje * self.error * self.vector_valores_entrada[i-1] 
@@ -81,11 +77,6 @@ class Neurona():
 
             self.vector_w[i] =  w_siguiente
  
-        #print(self.vector_w)
-        # print("Delta w")   
-        # print(self.vector_delta_w)
-        # print("w")  
-        # print(self.vector_w)
 
 
         #actualizar pesos según la diferencia entre salida deseada y obtenida 
