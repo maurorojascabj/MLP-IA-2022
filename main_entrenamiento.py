@@ -13,7 +13,7 @@ os.system('cls||clear')
 funcion_sigmoidal = sigmoidal()
 funcion_lineal = lineal()
 
-capas_ocultas=[5]
+capas_ocultas=[10]
 funcion_salida=funcion_sigmoidal
 funcion_capa_oculta=funcion_lineal
 coef_aprendizaje=0.5
@@ -72,7 +72,7 @@ red.escribir_pesos()
 print("--------TESTING-------------")
 
 
-red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_500_1.txt"))
+red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_500_2.txt"))
 exactitud, precision= red2.test_red(dataset_testing)
 
 print("precision: ")
