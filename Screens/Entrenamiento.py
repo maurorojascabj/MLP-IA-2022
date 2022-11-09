@@ -162,7 +162,6 @@ class Entrenamiento():
             valorCoeficAprend != 0 and
             valorTermMomento != 0
         ):
-            print(tamañoDataset, porcentajeDatasetValidacion, valorNumeroCapas, arrayNeuronas, valorFuncActivacion, valorCoeficAprend, valorTermMomento)
             valorNumeroCapas -= 1
             valorFuncActivacion -= 1
             valorCoeficAprend -= 1

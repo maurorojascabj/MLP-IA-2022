@@ -28,7 +28,7 @@ class Inicio():
     def mostrarPantallaUsarRed(self):
         self.botonUsarRed.destroy()
         self.botonCrearRed.destroy()
-        red = Red(self.window)
+        red = Red_UI(self.window)
 
     def mostrarPantallaCrearRed(self):
         self.botonUsarRed.destroy()
