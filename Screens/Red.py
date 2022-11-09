@@ -106,62 +106,49 @@ class Red(Button):
 
     ## setDatos()
     def setDatos(self, valorDataset, valorDatasetValidacion, valorCombinacionElegida):
-        if (valorCombinacionElegida == 1):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [5]
+        if (valorDataset != 0 and valorDatasetValidacion != 0 and valorCombinacionElegida != 0):
             self.diccionarioDatos["func_de_transferencia"] = 0
             self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.5
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        elif (valorCombinacionElegida == 2):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [10]
-            self.diccionarioDatos["func_de_transferencia"] = 0
-            self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.5
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        elif (valorCombinacionElegida == 3):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [5,5]
-            self.diccionarioDatos["func_de_transferencia"] = 0
-            self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.5
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        elif (valorCombinacionElegida == 4):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [10,10]
-            self.diccionarioDatos["func_de_transferencia"] = 0
-            self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.5
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        elif (valorCombinacionElegida == 5):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [5]
-            self.diccionarioDatos["func_de_transferencia"] = 0
-            self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.9
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        elif (valorCombinacionElegida == 6):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [10]
-            self.diccionarioDatos["func_de_transferencia"] = 0
-            self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.9
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        elif (valorCombinacionElegida == 7):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [5,5]
-            self.diccionarioDatos["func_de_transferencia"] = 0
-            self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.9
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        elif (valorCombinacionElegida == 8):
-            self.diccionarioDatos["tam_dataset"] = valorDataset
-            self.diccionarioDatos["capas_config"] = [10,10]
-            self.diccionarioDatos["func_de_transferencia"] = 0
-            self.diccionarioDatos["coef_aprendizaje"] = 0.5
-            self.diccionarioDatos["term_momento"] = 0.9
-            self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            if (valorCombinacionElegida == 1):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [5]
+                self.diccionarioDatos["term_momento"] = 0.5
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            elif (valorCombinacionElegida == 2):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [10]
+                self.diccionarioDatos["term_momento"] = 0.5
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            elif (valorCombinacionElegida == 3):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [5,5]
+                self.diccionarioDatos["term_momento"] = 0.5
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            elif (valorCombinacionElegida == 4):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [10,10]
+                self.diccionarioDatos["term_momento"] = 0.5
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            elif (valorCombinacionElegida == 5):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [5]
+                self.diccionarioDatos["term_momento"] = 0.9
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            elif (valorCombinacionElegida == 6):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [10]
+                self.diccionarioDatos["term_momento"] = 0.9
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            elif (valorCombinacionElegida == 7):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [5,5]
+                self.diccionarioDatos["term_momento"] = 0.9
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
+            elif (valorCombinacionElegida == 8):
+                self.diccionarioDatos["tam_dataset"] = valorDataset
+                self.diccionarioDatos["capas_config"] = [10,10]
+                self.diccionarioDatos["term_momento"] = 0.9
+                self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
         
-        self.redirectPantalla(self.diccionarioDatos)
+            self.redirectPantalla(self.diccionarioDatos)
 
