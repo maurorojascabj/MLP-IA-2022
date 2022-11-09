@@ -29,9 +29,10 @@ matrizC=matrizStringToArrayInt(matrizC).copy()
 matrizF=matrizStringToArrayInt(matrizF).copy()
 
 class Resultado():
-    def __init__(self, window, patronSeleccionado, distorsion):
+    def __init__(self, window, patronSeleccionado, distorsion, red):
         super().__init__()
         self.window = window
+        self.red = red
 
         valorDistorsion = distorsion[:-1] #Elimino el caracter %
         valorDistorsion = int(valorDistorsion)
@@ -71,14 +72,15 @@ class Resultado():
             newMatriz = self.setDistorsion(newMatriz, valorDistorsion)
 
         self.patternDistorsionado.drawPattern(self.frameDistorsionado, cellStyles["bgCell"], newMatriz)
-
-        self.getClassPatron = Button(self.frameContenedor, text="Clasificador")
+        
+        self.getClassPatron = Button(self.frameContenedor, text="Clasificador", command=lambda: self.clasificar(newMatriz))
         self.getClassPatron.configure(width=botonGetClassPatronStyles["width"], height=botonGetClassPatronStyles["height"], bg=botonGetClassPatronStyles["bg"], font=("Arial Bold", 14))
         self.getClassPatron.place(x=botonGetClassPatronStyles["coordenadaX"], y=botonGetClassPatronStyles["coordenadaY"])
 
         self.textResultado = Text("RESULTADO:")
         self.textResultado.createUI(self.frameContenedor, ("Arial Bold", 15))
         self.textResultado.setLocation(textResultadoStyles["coordenadaX"], textResultadoStyles["coordenadaY"])
+
 
     def setDistorsion(self, matriz, repetitions):
         newMatriz = matriz.copy()
@@ -91,3 +93,17 @@ class Resultado():
                     else:
                         newMatriz[y] = 0
         return newMatriz
+    
+    def clasificar(self, matriz):
+        patronClasificado = self.red.clasificar_patron_maxarg(matriz)
+        letra = ''
+        if patronClasificado == [0,1,0]:
+            letra = 'D'
+        elif patronClasificado == [1,0,0]:
+            letra = 'B'
+        elif patronClasificado == [0,0,1]:
+            letra = 'F'
+        
+        self.textResultadoObtenido = Text(letra)
+        self.textResultadoObtenido.createUI(self.frameContenedor, ("Arial Bold", 16))
+        self.textResultadoObtenido.setLocation(textResultadoObtenidoStyles["coordenadaX"], textResultadoObtenidoStyles["coordenadaY"])

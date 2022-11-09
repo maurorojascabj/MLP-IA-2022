@@ -44,18 +44,119 @@ frameDistorsionado={
 
 #Title styles
 titleMainStyles={
-    "coordenadaX": 520,
+    "coordenadaX": 540,
     "coordenadaY": 30
 }
 
-textMenuStyles={
-    "coordenadaX": 500,
-    "coordenadaY": 150
-}
 textPrincipalSeleccionPatronStyles={
     "coordenadaX": 500,
     "coordenadaY": 40
 }
+
+##Pantalla Red
+buttonMainRedStyles={
+    "coordenadaX": 340,
+    "coordenadaY": 560,
+    "width": 40,
+    "bg": primaryColor["color"]
+}
+##Fin Pantalla Red
+
+##Pantalla Entrenamiento
+textMenuEntrenamientoStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 20
+}
+
+titleDistorsionStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 180
+}
+comboboxDistorsionStyles={
+    "coordenadaX": 500,
+    "coordenadaY": 180
+}
+
+titleCapasStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 180
+}
+radCapaUnoStyles={
+    "coordenadaX": 490,
+    "coordenadaY": 180
+}
+radCapaDosStyles={
+    "coordenadaX": 620,
+    "coordenadaY": 180
+}
+
+titleComboboxNeuronasStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 230
+}
+comboboxNeuronasStyles={
+    "coordenadaX": 500,
+    "coordenadaY": 230
+}
+
+textComboboxNeuronasDosCapasStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 280
+}
+comboboxNeuronasDosCapasStyles={
+    "coordenadaX": 500,
+    "coordenadaY": 280
+}
+
+textFuncionActivacionStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 330
+}
+radFunctionActivacionLinealStyles={
+    "coordenadaX": 490,
+    "coordenadaY": 330
+}
+radFunctionActivacionSigmoidalStyles={
+    "coordenadaX": 620,
+    "coordenadaY": 330
+}
+
+textCoeficienteAprendizajeStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 380
+}
+radCoeficienteAprendizajeCeroStyles={
+    "coordenadaX": 490,
+    "coordenadaY": 380
+}
+radCoeficienteAprendizajeUnoStyles={
+    "coordenadaX": 620,
+    "coordenadaY": 380
+}
+
+textTerminoMomentoStyles={
+    "coordenadaX": 200,
+    "coordenadaY": 430
+}
+radTerminoMomentoUnoStyles={
+    "coordenadaX": 490,
+    "coordenadaY": 430
+}
+radTerminoMomentoDosStyles={
+    "coordenadaX": 620,
+    "coordenadaY": 430
+}
+botonGenerarRedEntrenamientoStyles={
+    "coordenadaX": 320,
+    "coordenadaY": 510,
+    "width": 40,
+    "bg": primaryColor["color"]
+}
+
+
+####Fin Pantalla Entrenamiento
+
+##Pantalla Seleccion Patron
 textDistorsionStyles={
     "coordenadaX": 500,
     "coordenadaY": 420
@@ -64,76 +165,14 @@ comboBoxDistorsionStyles={
     "coordenadaX": 500,
     "coordenadaY": 480
 }
-
-titleDistorsionStyles={
-    "coordenadaX": 500,
-    "coordenadaY": 220
-}
-comboboxDistorsionStyles={
-    "coordenadaX": 810,
-    "coordenadaY": 220
+botonSeleccionPatronStyles={
+    "coordenadaX": 495,
+    "coordenadaY": 550,
+    "width": 40,
+    "bg": primaryColor["color"]
 }
 
-titleCapasStyles={
-    "coordenadaX": 500,
-    "coordenadaY": 270
-}
-radCapaUnoStyles={
-    "coordenadaX": 800,
-    "coordenadaY": 270
-}
-radCapaDosStyles={
-    "coordenadaX": 930,
-    "coordenadaY": 270
-}
-
-titleComboboxNeuronasStyles={
-    "coordenadaX": 500,
-    "coordenadaY": 320
-}
-comboboxNeuronasStyles={
-    "coordenadaX": 810,
-    "coordenadaY": 320
-}
-
-textFuncionActivacionStyles={
-    "coordenadaX": 500,
-    "coordenadaY": 370
-}
-radFunctionActivacionLinealStyles={
-    "coordenadaX": 800,
-    "coordenadaY": 370
-}
-radFunctionActivacionSigmoidalStyles={
-    "coordenadaX": 930,
-    "coordenadaY": 370
-}
-
-textCoeficienteAprendizajeStyles={
-    "coordenadaX": 500,
-    "coordenadaY": 420
-}
-radCoeficienteAprendizajeCeroStyles={
-    "coordenadaX": 800,
-    "coordenadaY": 420
-}
-radCoeficienteAprendizajeUnoStyles={
-    "coordenadaX": 930,
-    "coordenadaY": 420
-}
-
-textTerminoMomentoStyles={
-    "coordenadaX": 500,
-    "coordenadaY": 470
-}
-radTerminoMomentoUnoStyles={
-    "coordenadaX": 800,
-    "coordenadaY": 470
-}
-radTerminoMomentoDosStyles={
-    "coordenadaX": 930,
-    "coordenadaY": 470
-}
+##Fin Pantalla Seleccion Patron
 
 botonGetClassPatronStyles={
     "coordenadaX": 450,
@@ -147,7 +186,11 @@ textResultadoStyles={
     "coordenadaX": 220,
     "coordenadaY": 500
 }
-
+textResultadoObtenidoStyles={
+    "coordenadaX": 380,
+    "coordenadaY": 500,
+    "color": primaryColor["color"]
+}
 
 #Radiobutton seleccionar patron
 radioButtonBStyles={
@@ -170,12 +213,7 @@ buttonMainStyles={
     "width": 99,
     "bg": primaryColor["color"]
 }
-buttonMainRedStyles={
-    "coordenadaX": 180,
-    "coordenadaY": 500,
-    "width": 99,
-    "bg": primaryColor["color"]
-}
+
 
 #buttonSaveChoose
 buttonSaveChooseStyles={
@@ -185,22 +223,16 @@ buttonSaveChooseStyles={
     "bg": primaryColor["color"]
 }
 botonUsarRedStyles={
-    "coordenadaX": 550,
-    "coordenadaY": 200,
+    "coordenadaX": 380,
+    "coordenadaY": 100,
     "width": 25,
     "height": 5,
     "bg": primaryColor["color"]
 }
 botonCrearRedStyles={
-    "coordenadaX": 550,
-    "coordenadaY": 400,
+    "coordenadaX": 380,
+    "coordenadaY": 320,
     "width": 25,
     "height": 5,
-    "bg": primaryColor["color"]
-}
-botonGenerarRedStyles={
-    "coordenadaX": 490,
-    "coordenadaY": 550,
-    "width": 40,
     "bg": primaryColor["color"]
 }

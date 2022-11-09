@@ -2,6 +2,7 @@ import tkinter as tkinter
 from tkinter import Radiobutton, Button
 from Styles import *
 from UI.FrameUI import *
+from UI.Dialog import *
 from UI.Pattern import *
 from UI.SelectMultiple import *
 from UI.Text import *
@@ -30,9 +31,10 @@ matrizC=matrizStringToArrayInt(matrizC).copy()
 matrizF=matrizStringToArrayInt(matrizF).copy()
 
 class SeleccionPatron():
-    def __init__(self, window):
+    def __init__(self, window, red):
         super().__init__()
         self.window = window
+        self.red = red
 
         self.frameContenedor = FrameUI(window, 0)
         self.frameContenedor.setLocation(100, 100)
@@ -72,11 +74,13 @@ class SeleccionPatron():
         self.comboBoxDistorsion.setValues()
         self.comboBoxDistorsion.setLocation(comboBoxDistorsionStyles["coordenadaX"], comboBoxDistorsionStyles["coordenadaY"])
 
-        self.botonGenerarRed = Button(self.frameContenedor, text="Guardar elección", command=lambda: self.redirectPantalla(radioValue.get(), self.comboBoxDistorsion.getValues()))
-        self.botonGenerarRed.configure(width=botonGenerarRedStyles["width"], bg=botonGenerarRedStyles["bg"])
-        self.botonGenerarRed.place(x=botonGenerarRedStyles["coordenadaX"], y=botonGenerarRedStyles["coordenadaY"])
+        self.botonSeleccionPatron = Button(self.frameContenedor, text="Guardar elección", command=lambda: self.redirectPantalla(radioValue.get(), self.comboBoxDistorsion.getValues()))
+        self.botonSeleccionPatron.configure(width=botonSeleccionPatronStyles["width"], bg=botonSeleccionPatronStyles["bg"])
+        self.botonSeleccionPatron.place(x=botonSeleccionPatronStyles["coordenadaX"], y=botonSeleccionPatronStyles["coordenadaY"])
     
     def redirectPantalla(self, patron, distorsion):
         if(patron in [1, 2, 3]):
             self.frameContenedor.destroy()
-            resultado = Resultado(self.window, patron, distorsion)
+            resultado = Resultado(self.window, patron, distorsion, self.red)
+        else:
+            self.modalWarning = Dialog("warning", "¡Cuidado!", "Debe seleccionar un patrón")

@@ -1,5 +1,6 @@
 from tkinter import Button, Radiobutton
 from UI.FrameUI import *
+from UI.Dialog import *
 from UI.Text import *
 from Styles import *
 from Screens.SeleccionPatron import *
@@ -17,7 +18,7 @@ class Red(Button):
 
         buttonMainRed = Button(self.frameContenedor, text="Guardar elección", command=lambda: self.setDatos(self.radioDataset.get(), self.radioDatasetValidacion.get(), self.radioValue.get()))
         buttonMainRed.configure(width=buttonMainRedStyles["width"], bg=buttonMainRedStyles["bg"])
-        buttonMainRed.place(x=100, y=560)
+        buttonMainRed.place(x=buttonMainRedStyles["coordenadaX"], y=buttonMainRedStyles["coordenadaY"])
 
         opcionCapa1 = [
             ["1 Capa", "5 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,5"],
@@ -42,11 +43,11 @@ class Red(Button):
             self.text.createUI(self.frameContenedor)
             self.text.setLocation(0, 0)
             valoresDataset = [100, 500, 1000]
-            idx = 1
+            posicionX = 400
             for item in valoresDataset:
                 self.radioButton = Radiobutton(self.frameContenedor, text=str(item), value=item, variable=self.radioDataset)
-                self.radioButton.place(x=200*idx, y=30)
-                idx += 1
+                self.radioButton.place(x=posicionX, y=0)
+                posicionX += 200
         crearSeleccionDataset()
 
         def crearSeleccionDatasetValidacion():
@@ -54,18 +55,18 @@ class Red(Button):
             self.text.createUI(self.frameContenedor)
             self.text.setLocation(0, 60)
             valoresDatasetValidacion = [10, 20, 30]
-            idx = 1
+            posicionX = 400
             for item in valoresDatasetValidacion:
                 self.radioButton = Radiobutton(self.frameContenedor, text=str(item) + "%", value=item, variable=self.radioDatasetValidacion)
-                self.radioButton.place(x=200*idx, y=90)
-                idx += 1
+                self.radioButton.place(x=posicionX, y=60)
+                posicionX += 200
         crearSeleccionDatasetValidacion()
 
         def crearOpcionesPrueba():
             self.text = Text("Seleccione la configuración de la red adecuada:")
             self.text.createUI(self.frameContenedor)
-            self.text.setLocation(0, 130)
-            positionY = 180
+            self.text.setLocation(0, 110)
+            positionY = 160
             idx = 1
             for item in opcionCapa1:
                 textoCompleto = str(idx) + ") " + item[0:1][0]
@@ -106,7 +107,7 @@ class Red(Button):
     def redirectPantalla(self, datos):
         self.frameContenedor.destroy()
         self.red = obtener_red_precargada(datos) # self.red.clasificar_patron_maxarg(patron_distorsionado)
-        pantallaPatron = SeleccionPatron(self.window)
+        pantallaPatron = SeleccionPatron(self.window, self.red)
 
     ## setDatos()
     def setDatos(self, valorDataset, valorDatasetValidacion, valorCombinacionElegida):
@@ -153,6 +154,7 @@ class Red(Button):
                 self.diccionarioDatos["capas_config"] = [10,10]
                 self.diccionarioDatos["term_momento"] = 0.9
                 self.diccionarioDatos["porc_validacion"] = valorDatasetValidacion
-        
             self.redirectPantalla(self.diccionarioDatos)
+        else:
+            self.modalWarning = Dialog("warning", "¡Cuidado!", "Debe seleccionar una opción para cada caso")
 
