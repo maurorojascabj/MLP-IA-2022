@@ -7,7 +7,7 @@ from Screens.SeleccionPatron import *
 from integracion_utilidades import *
 from Core.modelos.red import Red
 
-class Red(Button):
+class Red_UI(Button):
     def __init__(self, window):
         super().__init__()
         self.red = None
