@@ -23,14 +23,14 @@ class Red_UI(Button):
         opcionCapa1 = [
             ["1 Capa", "5 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,5"],
             ["1 Capa", "10 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,5"],
-            ["2 Capa", "Cada capa oculta de 5 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,5"],
-            ["2 Capa", "Cada capa oculta de 10 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,5"],       
+            ["2 Capas", "Cada capa oculta de 5 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,5"],
+            ["2 Capas", "Cada capa oculta de 10 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,5"],       
         ]
         opcionCapa2 = [
             ["1 Capa", "5 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,9"],
             ["1 Capa", "10 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,9"],
-            ["2 Capa", "Cada capa oculta de 5 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,9"],
-            ["2 Capa", "Cada capa oculta de 10 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,9"]
+            ["2 Capas", "Cada capa oculta de 5 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,9"],
+            ["2 Capas", "Cada capa oculta de 10 neuronas", "Función de transferencia lineal", "Coeficiente de aprendizaje 0,5", "Término momento 0,9"]
         ]
 
         ## Creamos el menu

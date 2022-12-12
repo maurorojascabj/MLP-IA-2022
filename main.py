@@ -8,6 +8,7 @@ from Screens.Inicio import *
 from Screens.AcercaDe import *
 
 
+
 window = tkinter.Tk()
 
 def irInicio():
@@ -32,7 +33,7 @@ menuPrincipal.add_command(label="Salir", command=window.quit)
 ##Submenues menu ayuda
 menuAyuda.add_command(label="Acerca de...", command=lambda: abrirAcercaDe())
 
-title = Text("Perceptron Multicapa")
+title = Text("Perceptrón Multicapa")
 title.createUI(window, ("Arial Bold", 30))
 title.setLocation(titleMainStyles["coordenadaX"], titleMainStyles["coordenadaY"])
 

@@ -6,7 +6,7 @@ class SelectMultiple(Combobox):
         self.currentValue = tkinter.StringVar()
         Combobox.__init__(self)
         self.comboBox = Combobox(window)
-        self.comboBox.config(textvariable = self.currentValue, state=state)
+        self.comboBox.config(textvariable = self.currentValue, state="readonly")
         self.textvariable = self.currentValue
     
     def setWidth(self, valor):

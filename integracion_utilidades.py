@@ -21,6 +21,7 @@ def entrenar_y_obtener_red(dic):
         funcion_transf_ocultas = sigmoidal() 
 
     red = Red(dic['capas_config'],sigmoidal(),funcion_transf_ocultas, dic['coef_aprendizaje'] ,dic['term_momento'])
+    
 
     porcentaje_validacion = (dic['porc_validacion'])/100
     porcentaje_testing = 0.2

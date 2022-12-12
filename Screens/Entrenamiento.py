@@ -1,5 +1,5 @@
 import tkinter as tkinter
-from tkinter import Radiobutton, Button
+from tkinter import Radiobutton, Button, Entry
 from Styles import *
 from UI.FrameUI import *
 from UI.Dialog import *
@@ -10,6 +10,7 @@ from Screens.SeleccionPatron import *
 from utils import *
 from integracion_utilidades import *
 from Core.modelos.red import Red
+from tktooltip import ToolTip
 
 
 class Entrenamiento():
@@ -69,21 +70,27 @@ class Entrenamiento():
         self.textCoeficienteAprendizaje.createUI(self.frameContenedor, ("Arial Bold", 12))
         self.textCoeficienteAprendizaje.setLocation(textCoeficienteAprendizajeStyles["coordenadaX"], textCoeficienteAprendizajeStyles["coordenadaY"])
 
-        valueCoeficienteAprendizaje = tkinter.IntVar()
-        self.radCoeficienteAprendizajeCero = Radiobutton(self.frameContenedor, text='0 (cero)', value=1, variable=valueCoeficienteAprendizaje)
-        self.radCoeficienteAprendizajeCero.place(x=radCoeficienteAprendizajeCeroStyles["coordenadaX"], y=radCoeficienteAprendizajeCeroStyles["coordenadaY"])
-        self.radCoeficienteAprendizajeUno = Radiobutton(self.frameContenedor, text='1 (uno)', value=2, variable=valueCoeficienteAprendizaje)
-        self.radCoeficienteAprendizajeUno.place(x=radCoeficienteAprendizajeUnoStyles["coordenadaX"], y=radCoeficienteAprendizajeUnoStyles["coordenadaY"])
+        valueCoeficienteAprendizaje=Entry(self.frameContenedor)
+        valueCoeficienteAprendizaje.insert(0, "0.0")
+        valueCoeficienteAprendizaje.place(x=radCoeficienteAprendizajeCeroStyles["coordenadaX"], y=radCoeficienteAprendizajeCeroStyles["coordenadaY"])
+       # valueCoeficienteAprendizaje = tkinter.IntVar()
+       # self.radCoeficienteAprendizajeCero = Radiobutton(self.frameContenedor, text='0 (cero)', value=1, variable=valueCoeficienteAprendizaje)
+       # self.radCoeficienteAprendizajeCero.place(x=radCoeficienteAprendizajeCeroStyles["coordenadaX"], y=radCoeficienteAprendizajeCeroStyles["coordenadaY"])
+       # self.radCoeficienteAprendizajeUno = Radiobutton(self.frameContenedor, text='1 (uno)', value=2, variable=valueCoeficienteAprendizaje)
+       # self.radCoeficienteAprendizajeUno.place(x=radCoeficienteAprendizajeUnoStyles["coordenadaX"], y=radCoeficienteAprendizajeUnoStyles["coordenadaY"])
 
         self.textTerminoMomento = Text("Término de momento:")
         self.textTerminoMomento.createUI(self.frameContenedor, ("Arial Bold", 12))
         self.textTerminoMomento.setLocation(textTerminoMomentoStyles["coordenadaX"], textTerminoMomentoStyles["coordenadaY"])
 
-        valueTerminoMomento = tkinter.IntVar()
-        self.radTerminoMomentoUno = Radiobutton(self.frameContenedor, text='0 (cero)', value=1, variable=valueTerminoMomento)
-        self.radTerminoMomentoUno.place(x=radTerminoMomentoUnoStyles["coordenadaX"], y=radTerminoMomentoUnoStyles["coordenadaY"])
-        self.radTerminoMomentoDos = Radiobutton(self.frameContenedor, text='1 (uno)', value=2, variable=valueTerminoMomento)
-        self.radTerminoMomentoDos.place(x=radTerminoMomentoDosStyles["coordenadaX"], y=radTerminoMomentoDosStyles["coordenadaY"])
+        valueTerminoMomento = Entry(self.frameContenedor)
+        valueTerminoMomento.insert(0, "0.0")
+        valueTerminoMomento.place(x=radTerminoMomentoUnoStyles["coordenadaX"], y=radTerminoMomentoUnoStyles["coordenadaY"])
+        #valueTerminoMomento = tkinter.IntVar()
+        #self.radTerminoMomentoUno = Radiobutton(self.frameContenedor, text='0 (cero)', value=1, variable=valueTerminoMomento)
+        #self.radTerminoMomentoUno.place(x=radTerminoMomentoUnoStyles["coordenadaX"], y=radTerminoMomentoUnoStyles["coordenadaY"])
+        #self.radTerminoMomentoDos = Radiobutton(self.frameContenedor, text='1 (uno)', value=2, variable=valueTerminoMomento)
+        #self.radTerminoMomentoDos.place(x=radTerminoMomentoDosStyles["coordenadaX"], y=radTerminoMomentoDosStyles["coordenadaY"])
 
         self.botonGenerarRedEntrenamiento = Button(
             self.frameContenedor, text="Crear red",
@@ -93,12 +100,14 @@ class Entrenamiento():
                 self.valueCapas.get(),
                 self.valoresCantidadNeuronasPorCapa,
                 self.valueFuncionActivacion.get(),
-                valueCoeficienteAprendizaje.get(),
-                valueTerminoMomento.get()
+                float(valueCoeficienteAprendizaje.get()),
+                float(valueTerminoMomento.get())
             )
         )
         self.botonGenerarRedEntrenamiento.configure(width=botonGenerarRedEntrenamientoStyles["width"], bg=botonGenerarRedEntrenamientoStyles["bg"])
         self.botonGenerarRedEntrenamiento.place(x=botonGenerarRedEntrenamientoStyles["coordenadaX"], y=botonGenerarRedEntrenamientoStyles["coordenadaY"])
+        ToolTip(self.botonGenerarRedEntrenamiento, msg="Crear red con los parámetros indicados y entrenarla", follow=True, delay=0.5)
+
 
         ##
         self.radioDataset = tkinter.IntVar()
@@ -159,13 +168,12 @@ class Entrenamiento():
             valorNumeroCapas != 0 and
             arrayNeuronas != [] and
             valorFuncActivacion != 0 and
-            valorCoeficAprend != 0 and
-            valorTermMomento != 0
+            valorCoeficAprend >= 0 and valorCoeficAprend <= 1 and
+            valorTermMomento >= 0 and valorTermMomento <= 1
         ):
             valorNumeroCapas -= 1
             valorFuncActivacion -= 1
-            valorCoeficAprend -= 1
-            valorTermMomento -= 1
+            
             self.diccionarioDatos["tam_dataset"] = tamañoDataset
             self.diccionarioDatos["capas_config"] = arrayNeuronas
             self.diccionarioDatos["func_de_transferencia"] = valorFuncActivacion
@@ -173,6 +181,12 @@ class Entrenamiento():
             self.diccionarioDatos["term_momento"] = valorTermMomento
             self.diccionarioDatos["porc_validacion"] = porcentajeDatasetValidacion
             self.redirectPantalla(self.diccionarioDatos)
+            valorCoeficAprend -= 1
+            valorTermMomento -= 1
+        elif(valorCoeficAprend < 0 or valorCoeficAprend > 1):
+            self.modalWarning = Dialog("warning", "¡Cuidado!", "Coeficiente de Aprendizaje debe ser un valor entre 0 y 1")
+        elif(valorTermMomento < 0 or valorTermMomento > 1):
+            self.modalWarning = Dialog("warning", "¡Cuidado!", "Término de Momento debe ser un valor entre 0 y 1")
         else:
             self.modalWarning = Dialog("warning", "¡Cuidado!", "Debe seleccionar una opción para cada caso")
 

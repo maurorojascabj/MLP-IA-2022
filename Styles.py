@@ -187,7 +187,7 @@ textResultadoStyles={
     "coordenadaY": 500
 }
 textResultadoObtenidoStyles={
-    "coordenadaX": 380,
+    "coordenadaX": 400,
     "coordenadaY": 500,
     "color": primaryColor["color"]
 }
