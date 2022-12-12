@@ -14,3 +14,5 @@ Core/modelos/__pycache__/Red.cpython-310.pyc
 Core/__pycache__/__init__.cpython-310.pyc
 Core/enums/__pycache__/__init__.cpython-310.pyc
 Core/funciones/__pycache__/sigmoidal.cpython-310.pyc
+bin/
+__pycache__

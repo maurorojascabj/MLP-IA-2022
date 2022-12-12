@@ -121,7 +121,7 @@ class Red():
     #     self.matrices_w=self.matriz_early_stopping
 
     def escribir_pesos(self):    #se escribe los pesos wi obtenidos del entrenamiento en archivo
-        guardar_pesos("archivos_w\casos.txt",self.matrices_w) 
+        guardar_pesos("archivos_w\pesos_app.txt",self.matrices_w) 
 
 
     
