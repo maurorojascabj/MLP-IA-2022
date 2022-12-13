@@ -72,7 +72,7 @@ red.escribir_pesos()
 print("\n\n--------TESTING-------------")
 
 
-red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\caso_1000_14.txt"))
+red2  = Red(capas_ocultas, funcion_salida, funcion_capa_oculta, coef_aprendizaje, term_momento,obtener_pesos("archivos_w\casos.txt"))
 exactitud, precision= red2.test_red(dataset_testing)
 
 print("precision: ")

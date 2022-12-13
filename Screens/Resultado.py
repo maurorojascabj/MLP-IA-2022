@@ -6,6 +6,7 @@ from UI.Pattern import *
 from UI.SelectMultiple import *
 from UI.Text import *
 from utils import *
+from tktooltip import ToolTip
 
 patterns = {
     "patternB": {
@@ -73,11 +74,12 @@ class Resultado():
 
         self.patternDistorsionado.drawPattern(self.frameDistorsionado, cellStyles["bgCell"], newMatriz)
         
-        self.getClassPatron = Button(self.frameContenedor, text="Clasificador", command=lambda: self.clasificar(newMatriz))
+        self.getClassPatron = Button(self.frameContenedor, text="Clasificar Patrón", command=lambda: self.clasificar(newMatriz))
         self.getClassPatron.configure(width=botonGetClassPatronStyles["width"], height=botonGetClassPatronStyles["height"], bg=botonGetClassPatronStyles["bg"], font=("Arial Bold", 14))
         self.getClassPatron.place(x=botonGetClassPatronStyles["coordenadaX"], y=botonGetClassPatronStyles["coordenadaY"])
+        ToolTip(self.getClassPatron, msg="Obtener letra a la que corresponde el patrón de acuerdo al modelo", follow=True, delay=0.5)
 
-        self.textResultado = Text("RESULTADO:")
+        self.textResultado = Text("LETRA OBTENIDA:")
         self.textResultado.createUI(self.frameContenedor, ("Arial Bold", 15))
         self.textResultado.setLocation(textResultadoStyles["coordenadaX"], textResultadoStyles["coordenadaY"])
 
@@ -105,5 +107,5 @@ class Resultado():
             letra = 'F'
         
         self.textResultadoObtenido = Text(letra)
-        self.textResultadoObtenido.createUI(self.frameContenedor, ("Arial Bold", 16))
+        self.textResultadoObtenido.createUI(self.frameContenedor, ("Arial Bold", 15))
         self.textResultadoObtenido.setLocation(textResultadoObtenidoStyles["coordenadaX"], textResultadoObtenidoStyles["coordenadaY"])
