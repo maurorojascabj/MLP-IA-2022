@@ -120,8 +120,8 @@ class Red():
     # def aplicar_early_stopping(self):
     #     self.matrices_w=self.matriz_early_stopping
 
-    def escribir_pesos(self):    #se escribe los pesos wi obtenidos del entrenamiento en archivo
-        guardar_pesos("archivos_w\pesos_app.txt",self.matrices_w) 
+    def escribir_pesos(self,archivo):    #se escribe los pesos wi obtenidos del entrenamiento en archivo
+        guardar_pesos(archivo,self.matrices_w) 
 
 
     
@@ -244,7 +244,7 @@ class Red():
             i+=1
             self.acumulacion_i_patrones_test+=1
             self.calcular_positivos_precision_red(salida_maxarg, salida_deseada)
-        self.exactitud_test=aciertos / self.acumulacion_i_patrones_test
+        self.exactitud_test=aciertos / self.acumulacion_i_patrones_test *100
         self.obtener_precision_por_letra()
            
         return self.exactitud_test, self.precision_test
@@ -269,6 +269,6 @@ class Red():
     def obtener_precision_por_letra(self):
         for i in range(3):
             if(self.verdaderos_positivos[i]>0 or self.falsos_positivos[i]>0):
-                self.precision_test[i]=self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i])
+                self.precision_test[i]=self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i]) * 100
             else:
                 self.precision_test[i]=0
