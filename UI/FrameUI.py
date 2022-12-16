@@ -12,3 +12,6 @@ class FrameUI(Frame):
     
     def setLocation(self, positionX, positionY):
         self.place(x=positionX, y=positionY)
+    
+    def hideFrame(self):
+        self.place_forget()

@@ -3,7 +3,7 @@ from tkinter.ttk import Button, Combobox, Label, Radiobutton
 from tkinter import *
 from UI.Text import *
 from Styles import *
-from Screens.Red import *
+from Screens.Red_UI import *
 from Screens.Entrenamiento import *
 from tktooltip import ToolTip
 
@@ -12,7 +12,7 @@ from tktooltip import ToolTip
 class Inicio():
     def __init__(self, window):
         super().__init__()
-        self.window = window    
+        self.window = window
 
         self.frameContenedor = FrameUI(window, 0)
         self.frameContenedor.setLocation(200, 100)
@@ -37,6 +37,6 @@ class Inicio():
     def mostrarPantallaCrearRed(self):
         self.botonUsarRed.destroy()
         self.botonCrearRed.destroy()
-        red = Entrenamiento(self.window)
+        entrenamiento = Entrenamiento(self.window)
 
 

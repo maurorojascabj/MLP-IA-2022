@@ -2,8 +2,6 @@ import tkinter as tkinter
 from tkinter import *
 from UI.Text import *
 from Styles import *
-from Screens.Red import *
-from Screens.Entrenamiento import *
 from Screens.Inicio import *
 from Screens.AcercaDe import *
 
