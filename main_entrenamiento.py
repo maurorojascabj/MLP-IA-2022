@@ -91,4 +91,4 @@ matriz_errores, exact_entrenamiento, exact_validacion, exact_test, precision=lee
 
 #print(matriz_errores)
 print("exactitudes:"+ str(exact_entrenamiento)+" "+str(exact_validacion)+" "+str(exact_test))
-print("precision test:"+str(precision_test[0])+" "+str(precision_test[1])+" "+str(precision_test[2])+" ")
+print("precision test:"+str(precision_test[0])+" "+str(precision_test[1])+" "+str(precision_test[2]))

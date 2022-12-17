@@ -111,7 +111,7 @@ class Red():
             self.acumulacion_i_patrones_entrenamiento+=1           
             
         self.error_global_entrenamiento=self.calcular_error_global(self.acumulacion_i_errores_entrenamiento, self.acumulacion_i_patrones_entrenamiento)
-        self.exactitud_entrenamiento = (len(dataset_entrenamiento) - desaciertos_entrenamiento) /len(dataset_entrenamiento)*100
+        self.exactitud_entrenamiento = round((len(dataset_entrenamiento) - desaciertos_entrenamiento) /len(dataset_entrenamiento)*100,2)
         return self.error_global_entrenamiento, self.exactitud_entrenamiento
        
     # def epoca_minimo_error_validacion(self):
@@ -127,10 +127,6 @@ class Red():
     
     #>>>MECANISMOS DE CLASIFICACION   
     #recive un patron y devuelve la clasificacion calculada por la red    
- 
-    def clasificar_patron_umbral(self, patron):
-        pass
-
 
 
     def clasificar_patron_maxarg(self, patron):
@@ -142,10 +138,11 @@ class Red():
                 }
 
         salida_obtenida = self.entrenar_patron(patron)     	
+        probab_salida_obtenida=self.obtener_probabilidades_por_letra(salida_obtenida)
         	
         max = np.argmax(salida_obtenida)
 
-        return salida[str(max.T)]
+        return salida[str(max.T)],probab_salida_obtenida
 
 
      
@@ -216,7 +213,7 @@ class Red():
             self.acumulacion_i_patrones_validacion+=1
 
         self.error_global_validacion=self.calcular_error_global(self.acumulacion_i_errores_validacion, self.acumulacion_i_patrones_validacion)
-        self.exactitud_validacion = (len(dataset_validacion) - desaciertos_validacion)/len(dataset_validacion)*100
+        self.exactitud_validacion = round((len(dataset_validacion) - desaciertos_validacion)/len(dataset_validacion)*100,2)
         return self.error_global_validacion, self.exactitud_validacion 
 
 
@@ -231,7 +228,7 @@ class Red():
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
             ve=[int(x) for x in vector_entrada]           
-            salida_maxarg = self.clasificar_patron_maxarg(ve)
+            salida_maxarg, probab_salida_obtenida = self.clasificar_patron_maxarg(ve)
             k=0
 
             if(salida_maxarg==salida_deseada):
@@ -244,8 +241,10 @@ class Red():
             i+=1
             self.acumulacion_i_patrones_test+=1
             self.calcular_positivos_precision_red(salida_maxarg, salida_deseada)
-        self.exactitud_test=aciertos / self.acumulacion_i_patrones_test *100
+            print("probabilidades:"+str(probab_salida_obtenida[0])+" "+str(probab_salida_obtenida[1])+" "+str(probab_salida_obtenida[2])+" ")
+        self.exactitud_test=round(aciertos / self.acumulacion_i_patrones_test,2)
         self.obtener_precision_por_letra()
+        
            
         return self.exactitud_test, self.precision_test
     
@@ -269,6 +268,15 @@ class Red():
     def obtener_precision_por_letra(self):
         for i in range(3):
             if(self.verdaderos_positivos[i]>0 or self.falsos_positivos[i]>0):
-                self.precision_test[i]=self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i]) * 100
+                self.precision_test[i]=round(self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i]),2)
             else:
                 self.precision_test[i]=0
+
+    def obtener_probabilidades_por_letra(self, salida_obtenida):
+        porcentajes_salida=[]
+        for i in range(len(salida_obtenida)):
+            porcentajes_salida.append(round(salida_obtenida[i]*100,2))
+        return porcentajes_salida
+       # print("probabilidades:"+str(porcentajes_salida[0])+" "+str(porcentajes_salida[1])+" "+str(porcentajes_salida[2])+" ")
+
+
