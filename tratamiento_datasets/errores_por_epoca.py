@@ -45,4 +45,13 @@ def leer_archivo_errores(archivo):
     return matriz_errores, exactitud_entrenamiento, exactitud_validacion,exactitud_test, precision_test
 
 
+
+archivo_errores="archivos_errores\errores_caso_1000_22.txt"
+matriz_errores, exact_entrenamiento, exact_validacion, exact_test, precision=leer_archivo_errores(archivo_errores)
+
+#print(matriz_errores)
+print("exactitudes:"+ str(exact_entrenamiento)+" "+str(exact_validacion)+" "+str(exact_test))
+print("precision test:"+str(precision[0])+" "+str(precision[1])+" "+str(precision[2]))
+
+
         

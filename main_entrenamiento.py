@@ -14,7 +14,7 @@ os.system('cls||clear')
 funcion_sigmoidal = sigmoidal()
 funcion_lineal = lineal()
 
-capas_ocultas=[10]
+capas_ocultas=[10,10]
 funcion_salida=funcion_sigmoidal
 funcion_capa_oculta=funcion_lineal
 coef_aprendizaje=0.5
@@ -30,7 +30,7 @@ porcentaje_validacion_3 = 0.3
 
 archivo_dataset="tratamiento_datasets\dataset1000.txt"
 tamanio_archivo= 1000
-dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo_dataset, tamanio_archivo, porcentaje_testing, porcentaje_validacion_2)
+dataset_entrenamiento, dataset_testing, dataset_validacion=dividir_dataset(archivo_dataset, tamanio_archivo, porcentaje_testing, porcentaje_validacion_3)
 
                 
 random.shuffle(dataset_entrenamiento)
@@ -46,8 +46,8 @@ exactitud_validacion=0
 
 #paciencia=30 #se aplica early stopping si luego de 10 epocas no mejora el error global de validacion
 
-archivo_pesos="archivos_w\pesos_app.txt"
-archivo_errores="archivos_errores\errores_caso_100_1.txt"
+archivo_pesos="archivos_w\caso_1000_24.txt"
+archivo_errores="archivos_errores\errores_caso_1000_24.txt"
 
 while(error_global_entrenamiento>umbral):  #se realizan epocas mientras no se llegue al umbral de error de entrenamiento
     error_global_entrenamiento, exactitud =red.entrenar_red(dataset_entrenamiento)
@@ -92,3 +92,4 @@ matriz_errores, exact_entrenamiento, exact_validacion, exact_test, precision=lee
 #print(matriz_errores)
 print("exactitudes:"+ str(exact_entrenamiento)+" "+str(exact_validacion)+" "+str(exact_test))
 print("precision test:"+str(precision_test[0])+" "+str(precision_test[1])+" "+str(precision_test[2]))
+print("precision test:"+str(precision[0])+" "+str(precision[1])+" "+str(precision[2]))
