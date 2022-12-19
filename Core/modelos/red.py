@@ -141,11 +141,12 @@ class Red():
                 "2": [0,0,1]
                 }
 
-        salida_obtenida = self.entrenar_patron(patron)     	
-        	
+        salida_obtenida = self.entrenar_patron(patron)      
+        probab_salida_obtenida=self.obtener_probabilidades_por_letra(salida_obtenida)
+            
         max = np.argmax(salida_obtenida)
 
-        return salida[str(max.T)]
+        return salida[str(max.T)],probab_salida_obtenida
 
 
      
@@ -231,7 +232,7 @@ class Red():
             list_salida_deseada=list(renglon[2]) #se convierte el string que forma el patron ingresado en un vector
             salida_deseada =[int(x) for x in list_salida_deseada]
             ve=[int(x) for x in vector_entrada]           
-            salida_maxarg = self.clasificar_patron_maxarg(ve)
+            salida_maxarg, probab_salida_obtenida = self.clasificar_patron_maxarg(ve)
             k=0
 
             if(salida_maxarg==salida_deseada):
@@ -244,8 +245,10 @@ class Red():
             i+=1
             self.acumulacion_i_patrones_test+=1
             self.calcular_positivos_precision_red(salida_maxarg, salida_deseada)
-        self.exactitud_test=aciertos / self.acumulacion_i_patrones_test *100
+            print("probabilidades:"+str(probab_salida_obtenida[0])+" "+str(probab_salida_obtenida[1])+" "+str(probab_salida_obtenida[2])+" ")
+        self.exactitud_test=round(aciertos / self.acumulacion_i_patrones_test,2)
         self.obtener_precision_por_letra()
+        
            
         return self.exactitud_test, self.precision_test
     

@@ -97,7 +97,7 @@ class Resultado():
         return newMatriz
     
     def clasificar(self, matriz):
-        patronClasificado = self.red.clasificar_patron_maxarg(matriz)
+        patronClasificado, probabilidadSalida = self.red.clasificar_patron_maxarg(matriz)
         letra = ''
         if patronClasificado == [0,1,0]:
             letra = 'D'
