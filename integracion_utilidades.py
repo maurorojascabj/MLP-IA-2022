@@ -4,6 +4,7 @@ from Core.funciones.sigmoidal import sigmoidal
 from Core.modelos.red import Red
 from tratamiento_datasets.matrices_pesos_por_capa import obtener_pesos
 from tratamiento_datasets.dividir_dataset import dividir_dataset
+from tratamiento_datasets.errores_por_epoca import *
 import os
 os.system('cls||clear')
 
@@ -14,6 +15,8 @@ def obtener_red_precargada(dic):
 
 
 def entrenar_y_obtener_red(dic):
+    with open("archivos_errores\errores_app.txt", 'r+') as f:
+        f.truncate()
 
     if dic['func_de_transferencia'] == 0:
         funcion_transf_ocultas = lineal()
@@ -64,7 +67,10 @@ def entrenar_y_obtener_red(dic):
 
         print("exactitud entrenamiento: "+str(exactitud_entrenamiento) +" - exactitud validacion: "+ str(exactitud_validacion)) 
 
-        red.escribir_pesos()
+        red.escribir_pesos("archivos_w\pesos_app.txt")
+        guardar_errores("archivos_errores\errores_app.txt",k,error_global_entrenamiento,error_global_valid)
+    guardar_exactitud("archivos_errores\errores_app.txt", exactitud_entrenamiento)
+    guardar_exactitud("archivos_errores\errores_app.txt", exactitud_validacion)
 
     return red
 

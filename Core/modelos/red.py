@@ -275,3 +275,10 @@ class Red():
                 self.precision_test[i]=self.verdaderos_positivos[i]/(self.verdaderos_positivos[i]+self.falsos_positivos[i]) * 100
             else:
                 self.precision_test[i]=0
+
+    def obtener_probabilidades_por_letra(self, salida_obtenida):
+        porcentajes_salida=[]
+        for i in range(len(salida_obtenida)):
+            porcentajes_salida.append(round(salida_obtenida[i]*100,2))
+        return porcentajes_salida
+       # print("probabilidades:"+str(porcentajes_salida[0])+" "+str(porcentajes_salida[1])+" "+str(porcentajes_salida[2])+" ")

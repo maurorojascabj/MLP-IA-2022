@@ -6,6 +6,7 @@ from Screens.SeleccionPatron import *
 from UI.FrameUI import *
 from UI.Text import *
 
+
 #Importamos librerias pandas y matplotlib
 import pandas as pd 
 import matplotlib
@@ -14,8 +15,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from tratamiento_datasets import errores_por_epoca
 
 
-class GraficoErrores():
-    def __init__(self, window, frameRed = None, dataRed = None,archivo_errores=None):
+class GraficoErroresEntrenamiento():
+    def __init__(self, window, frameRed = None, archivo_errores=None,dataRed = None):
         super().__init__()
         self.window = window
         self.frameRed = frameRed
@@ -37,8 +38,7 @@ class GraficoErrores():
         errores_epoca = errores_por_epoca.leer_archivo_errores(archivo)[0]
         exactitud_entrenamiento = errores_por_epoca.leer_archivo_errores(archivo)[1]
         exactitud_validacion = errores_por_epoca.leer_archivo_errores(archivo)[2]
-        exactitud_test = errores_por_epoca.leer_archivo_errores(archivo)[3]
-        precision_test = errores_por_epoca.leer_archivo_errores(archivo)[4]
+    
         
         #Creamos un array para cada data
         epoca = []
@@ -96,73 +96,16 @@ class GraficoErrores():
         self.textporcExactValid.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textporcExactValid.setLocation(235, 130)
 
-        self.textTesting = Text("Testing")
-        self.textTesting.createUI(self.frameRedInformacion, ("Arial Bold", 13))
-        self.textTesting.setLocation(20, 200)
-        self.textExactitudTesting = Text("Exactitud de testing:")
-        self.textExactitudTesting.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textExactitudTesting.setLocation(30, 240)
-        self.textValorTesting = Text(round(exactitud_test*100,2))
-        self.textValorTesting.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textValorTesting.setLocation(180, 240)
-        self.textporcExactTest = Text("%")
-        self.textporcExactTest.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textporcExactTest.setLocation(215, 240)
-
-        self.textPrecisiones = Text("Precisiones")
-        self.textPrecisiones.createUI(self.frameRedInformacion, ("Arial Bold", 13))
-        self.textPrecisiones.setLocation(20, 300)
-        self.textLetraB = Text("Letra b:")
-        self.textLetraB.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textLetraB.setLocation(30, 340)
-        self.textValorLetraB = Text(round(precision_test[0]*100,2))
-        self.textValorLetraB.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textValorLetraB.setLocation(100, 340)
-        self.textporcLetraB = Text("%")
-        self.textporcLetraB.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textporcLetraB.setLocation(135, 340)
-
-        self.textLetraD = Text("Letra d:")
-        self.textLetraD.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textLetraD.setLocation(30, 360)
-        self.textValorLetraD = Text(round(precision_test[1]*100,2))
-        self.textValorLetraD.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textValorLetraD.setLocation(100, 360)
-        self.textporcLetraD = Text("%")
-        self.textporcLetraD.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textporcLetraD.setLocation(135, 360)
-
-        self.textLetraF = Text("Letra f:")
-        self.textLetraF.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textLetraF.setLocation(30, 380)
-        self.textValorLetraF = Text(round(precision_test[2]*100,2))
-        self.textValorLetraF.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textValorLetraF.setLocation(100, 380)
-        self.textporcLetraF = Text("%")
-        self.textporcLetraF.createUI(self.frameRedInformacion, ("Arial Bold", 10))
-        self.textporcLetraF.setLocation(135, 380)
-        
-        self.botonVolverSeleccionarRed = Button(self.window, text="Volver", command=lambda: self.mostrarPantallaUsarRed() )
-        self.botonVolverSeleccionarRed.configure(width=20, bg=botonSeleccionPatronStyles["bg"])
-        self.botonVolverSeleccionarRed.place(x=100, y=650)
 
         self.botonClasificarPatrones = Button(self.window, text="Clasificar patrones", command=lambda: self.mostrarPantallaPatron() )
         self.botonClasificarPatrones.configure(width=20, bg=botonSeleccionPatronStyles["bg"])
         self.botonClasificarPatrones.place(x=900, y=650)
     
-    def mostrarPantallaUsarRed(self):
-        self.frameContenedor.destroy()
-        self.frameRedInformacion.destroy()
-        self.botonVolverSeleccionarRed.destroy()
-        self.botonClasificarPatrones.destroy()
-        #Mostramos la pantalla de redes creadas con sus configuraciones
-        self.frameRed.setLocation(250, 120)
-        self.frameRed.config(width=1000, height=600)
+    
     
     def mostrarPantallaPatron(self):
         self.frameContenedor.destroy()
         self.frameRedInformacion.destroy()
         self.botonClasificarPatrones.destroy()
-        self.botonVolverSeleccionarRed.destroy()
         pantallaPatron = SeleccionPatron(self.window, self.dataRed)
         

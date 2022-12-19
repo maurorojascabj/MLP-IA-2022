@@ -176,7 +176,7 @@ botonSeleccionPatronStyles={
 
 botonGetClassPatronStyles={
     "coordenadaX": 450,
-    "coordenadaY": 380,
+    "coordenadaY": 345,
     "width": 15,
     "height": 2,
     "bg": primaryColor["color"]
@@ -184,11 +184,11 @@ botonGetClassPatronStyles={
 
 textResultadoStyles={
     "coordenadaX": 220,
-    "coordenadaY": 500
+    "coordenadaY": 430
 }
 textResultadoObtenidoStyles={
     "coordenadaX": 400,
-    "coordenadaY": 500,
+    "coordenadaY": 430,
     "color": primaryColor["color"]
 }
 
