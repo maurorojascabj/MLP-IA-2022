@@ -42,6 +42,7 @@ class Resultado():
         self.frameContenedor.setLocation(200, 100)
         self.frameContenedor.config(width=1100, height=700)
 
+
         self.textPatronOriginal = Text("Patrón original")
         self.textPatronOriginal.createUI(self.frameContenedor, ("Arial Bold", 15))
         self.textPatronOriginal.setLocation(titlePatronSeleccionadoStyles["coordenadaX"], titlePatronSeleccionadoStyles["coordenadaY"])
@@ -97,7 +98,7 @@ class Resultado():
         return newMatriz
     
     def clasificar(self, matriz):
-        patronClasificado = self.red.clasificar_patron_maxarg(matriz)
+        patronClasificado, probabilidadSalida = self.red.clasificar_patron_maxarg(matriz)
         letra = ''
         if patronClasificado == [0,1,0]:
             letra = 'D'
@@ -109,3 +110,44 @@ class Resultado():
         self.textResultadoObtenido = Text(letra)
         self.textResultadoObtenido.createUI(self.frameContenedor, ("Arial Bold", 15))
         self.textResultadoObtenido.setLocation(textResultadoObtenidoStyles["coordenadaX"], textResultadoObtenidoStyles["coordenadaY"])
+
+
+        self.textProbab = Text("Probabilidad de que el Patrón sea:")
+        self.textProbab.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textProbab.setLocation(220,480)
+
+        self.textB = Text("● Letra B:")
+        self.textB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textB.setLocation(250,515)
+
+        self.textProbB = Text(probabilidadSalida[0])
+        self.textProbB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textProbB.setLocation(330,515)
+
+        self.textPorcB = Text("%")
+        self.textPorcB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textPorcB.setLocation(375,515)
+
+        self.textB = Text("● Letra D:")
+        self.textB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textB.setLocation(250,545)
+
+        self.textProbB = Text(probabilidadSalida[1])
+        self.textProbB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textProbB.setLocation(330,545)
+
+        self.textPorcB = Text("%")
+        self.textPorcB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textPorcB.setLocation(375,545)
+
+        self.textB = Text("● Letra F:")
+        self.textB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textB.setLocation(250,575)
+
+        self.textProbB = Text(probabilidadSalida[2])
+        self.textProbB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textProbB.setLocation(330,575)
+
+        self.textPorcB = Text("%")
+        self.textPorcB.createUI(self.frameContenedor, ("Arial Bold", 12))
+        self.textPorcB.setLocation(375,575)

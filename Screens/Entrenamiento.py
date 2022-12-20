@@ -11,6 +11,7 @@ from utils import *
 from integracion_utilidades import *
 from Core.modelos.red import Red
 from tktooltip import ToolTip
+from Screens.GraficoErroresEntrenamiento import GraficoErroresEntrenamiento
 
 
 class Entrenamiento():
@@ -157,7 +158,12 @@ class Entrenamiento():
     def redirectPantalla(self, datos):
         self.frameContenedor.destroy()
         self.red = entrenar_y_obtener_red(datos) # self.red.clasificar_patron_maxarg(patron_distorsionado)
-        pantallaPatron = SeleccionPatron(self.window, self.red)
+        #pantallaPatron = SeleccionPatron(self.window, self.red)
+       # self.ocultarElementos()
+        GraficoErroresEntrenamiento(self.window, self.frameContenedor, "archivos_errores\errores_app.txt",self.red)
+    
+   # def ocultarElementos(self):
+    #    self.frameContenedor.hideFrame()
 
 
     ##Seteamos el diccionario de datos

@@ -106,9 +106,9 @@ class Red_UI():
         }
     
     def redirectPantalla(self, datos):
-        self.red = obtener_red_precargada(datos) # self.red.clasificar_patron_maxarg(patron_distorsionado)
+        self.red,archivo_errores = obtener_red_precargada(datos) # self.red.clasificar_patron_maxarg(patron_distorsionado)
         self.ocultarElementos()
-        GraficoErrores(self.window, self.frameContenedor, self.red)
+        GraficoErrores(self.window, self.frameContenedor, self.red,archivo_errores)
     
     def ocultarElementos(self):
         self.frameContenedor.hideFrame()

@@ -15,11 +15,12 @@ from tratamiento_datasets import errores_por_epoca
 
 
 class GraficoErrores():
-    def __init__(self, window, frameRed = None, dataRed = None):
+    def __init__(self, window, frameRed = None, dataRed = None,archivo_errores=None):
         super().__init__()
         self.window = window
         self.frameRed = frameRed
         self.dataRed = dataRed
+       
 
         self.frameContenedor = FrameUI(window, 0)
         self.frameContenedor.setLocation(100, 100)
@@ -32,7 +33,7 @@ class GraficoErrores():
         self.figure = Figure(figsize=(10, 5))
 
         #Leer archivo de errores y obtenemos la data
-        archivo = "archivos_errores/errores_caso_100_1.txt"
+        archivo = archivo_errores
         errores_epoca = errores_por_epoca.leer_archivo_errores(archivo)[0]
         exactitud_entrenamiento = errores_por_epoca.leer_archivo_errores(archivo)[1]
         exactitud_validacion = errores_por_epoca.leer_archivo_errores(archivo)[2]
@@ -80,6 +81,10 @@ class GraficoErrores():
         self.textValorEntrenamiento = Text(exactitud_entrenamiento)
         self.textValorEntrenamiento.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textValorEntrenamiento.setLocation(230, 90)
+        self.textporcExactEntrenam = Text("%")
+        self.textporcExactEntrenam.createUI(self.frameRedInformacion, ("Arial Bold", 10))
+        self.textporcExactEntrenam.setLocation(265, 90)
+
         #Exactitud de validacion
         self.textExactitudValidacion = Text("Exactitud de validación:")
         self.textExactitudValidacion.createUI(self.frameRedInformacion, ("Arial Bold", 10))
@@ -87,6 +92,9 @@ class GraficoErrores():
         self.textValorValidacion = Text(exactitud_validacion)
         self.textValorValidacion.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textValorValidacion.setLocation(200, 130)
+        self.textporcExactValid = Text("%")
+        self.textporcExactValid.createUI(self.frameRedInformacion, ("Arial Bold", 10))
+        self.textporcExactValid.setLocation(235, 130)
 
         self.textTesting = Text("Testing")
         self.textTesting.createUI(self.frameRedInformacion, ("Arial Bold", 13))
@@ -94,9 +102,12 @@ class GraficoErrores():
         self.textExactitudTesting = Text("Exactitud de testing:")
         self.textExactitudTesting.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textExactitudTesting.setLocation(30, 240)
-        self.textValorTesting = Text(exactitud_test)
+        self.textValorTesting = Text(round(exactitud_test*100,2))
         self.textValorTesting.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textValorTesting.setLocation(180, 240)
+        self.textporcExactTest = Text("%")
+        self.textporcExactTest.createUI(self.frameRedInformacion, ("Arial Bold", 10))
+        self.textporcExactTest.setLocation(215, 240)
 
         self.textPrecisiones = Text("Precisiones")
         self.textPrecisiones.createUI(self.frameRedInformacion, ("Arial Bold", 13))
@@ -104,21 +115,32 @@ class GraficoErrores():
         self.textLetraB = Text("Letra b:")
         self.textLetraB.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textLetraB.setLocation(30, 340)
-        self.textValorLetraB = Text(precision_test[0])
+        self.textValorLetraB = Text(round(precision_test[0]*100,2))
         self.textValorLetraB.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textValorLetraB.setLocation(100, 340)
+        self.textporcLetraB = Text("%")
+        self.textporcLetraB.createUI(self.frameRedInformacion, ("Arial Bold", 10))
+        self.textporcLetraB.setLocation(135, 340)
+
         self.textLetraD = Text("Letra d:")
         self.textLetraD.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textLetraD.setLocation(30, 360)
-        self.textValorLetraD = Text(precision_test[1])
+        self.textValorLetraD = Text(round(precision_test[1]*100,2))
         self.textValorLetraD.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textValorLetraD.setLocation(100, 360)
+        self.textporcLetraD = Text("%")
+        self.textporcLetraD.createUI(self.frameRedInformacion, ("Arial Bold", 10))
+        self.textporcLetraD.setLocation(135, 360)
+
         self.textLetraF = Text("Letra f:")
         self.textLetraF.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textLetraF.setLocation(30, 380)
-        self.textValorLetraF = Text(precision_test[2])
+        self.textValorLetraF = Text(round(precision_test[2]*100,2))
         self.textValorLetraF.createUI(self.frameRedInformacion, ("Arial Bold", 10))
         self.textValorLetraF.setLocation(100, 380)
+        self.textporcLetraF = Text("%")
+        self.textporcLetraF.createUI(self.frameRedInformacion, ("Arial Bold", 10))
+        self.textporcLetraF.setLocation(135, 380)
         
         self.botonVolverSeleccionarRed = Button(self.window, text="Volver", command=lambda: self.mostrarPantallaUsarRed() )
         self.botonVolverSeleccionarRed.configure(width=20, bg=botonSeleccionPatronStyles["bg"])
