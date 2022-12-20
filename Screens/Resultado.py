@@ -30,10 +30,11 @@ matrizC=matrizStringToArrayInt(matrizC).copy()
 matrizF=matrizStringToArrayInt(matrizF).copy()
 
 class Resultado():
-    def __init__(self, window, patronSeleccionado, distorsion, red):
+    def __init__(self, window, patronSeleccionado, distorsion, red, pantallaPatron = None):
         super().__init__()
         self.window = window
         self.red = red
+        self.pantallaPatron = pantallaPatron
 
         valorDistorsion = distorsion[:-1] #Elimino el caracter %
         valorDistorsion = int(valorDistorsion)
@@ -75,14 +76,23 @@ class Resultado():
 
         self.patternDistorsionado.drawPattern(self.frameDistorsionado, cellStyles["bgCell"], newMatriz)
         
-        self.getClassPatron = Button(self.frameContenedor, text="Clasificar Patrón", command=lambda: self.clasificar(newMatriz))
-        self.getClassPatron.configure(width=botonGetClassPatronStyles["width"], height=botonGetClassPatronStyles["height"], bg=botonGetClassPatronStyles["bg"], font=("Arial Bold", 14))
+        self.getClassPatron = Button(self.frameContenedor, text="Clasificar patrón", command=lambda: self.clasificar(newMatriz))
+        self.getClassPatron.configure(width=botonGetClassPatronStyles["width"], height=botonGetClassPatronStyles["height"], bg=botonGetClassPatronStyles["bg"], font=("Arial Bold", 12))
         self.getClassPatron.place(x=botonGetClassPatronStyles["coordenadaX"], y=botonGetClassPatronStyles["coordenadaY"])
         ToolTip(self.getClassPatron, msg="Obtener letra a la que corresponde el patrón de acuerdo al modelo", follow=True, delay=0.5)
 
-        self.textResultado = Text("LETRA OBTENIDA:")
+        self.botonVolver = Button(self.frameContenedor, text="Volver", command=lambda: self.redirectPantalla())
+        self.botonVolver.configure(bg=botonGetClassPatronStyles["bg"], font=("Arial Bold", 12))
+        self.botonVolver.place(x=200, y=400)
+
+        self.textResultado = Text("Letra obtenida")
         self.textResultado.createUI(self.frameContenedor, ("Arial Bold", 15))
         self.textResultado.setLocation(textResultadoStyles["coordenadaX"], textResultadoStyles["coordenadaY"])
+        
+        self.frameResultado = FrameUI(self.frameContenedor, 0)
+        self.frameResultado.setLocation(900, 120)
+        self.frameResultado.config(width=200, height=210, highlightbackground='white', highlightthickness=2)
+
 
 
     def setDistorsion(self, matriz, repetitions):
@@ -101,14 +111,14 @@ class Resultado():
         patronClasificado, probabilidadSalida = self.red.clasificar_patron_maxarg(matriz)
         letra = ''
         if patronClasificado == [0,1,0]:
-            letra = 'D'
+            letra = 'd'
         elif patronClasificado == [1,0,0]:
-            letra = 'B'
+            letra = 'b'
         elif patronClasificado == [0,0,1]:
-            letra = 'F'
+            letra = 'f'
         
         self.textResultadoObtenido = Text(letra)
-        self.textResultadoObtenido.createUI(self.frameContenedor, ("Arial Bold", 15))
+        self.textResultadoObtenido.createUI(self.frameResultado, ("Arial Bold", 100))
         self.textResultadoObtenido.setLocation(textResultadoObtenidoStyles["coordenadaX"], textResultadoObtenidoStyles["coordenadaY"])
 
 
@@ -151,3 +161,7 @@ class Resultado():
         self.textPorcB = Text("%")
         self.textPorcB.createUI(self.frameContenedor, ("Arial Bold", 12))
         self.textPorcB.setLocation(375,575)
+    def redirectPantalla(self):
+        self.frameContenedor.hideFrame()
+        self.pantallaPatron.setLocation(100, 100)
+        self.pantallaPatron.config(width=1100, height=700)

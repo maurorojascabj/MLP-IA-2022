@@ -29,13 +29,13 @@ def entrenar_y_obtener_red(dic):
     porcentaje_validacion = (dic['porc_validacion'])/100
     porcentaje_testing = 0.2
     if dic['tam_dataset'] == 100:
-       archivo="tratamiento_datasets\dataset100.txt"
+       archivo="tratamiento_datasets/dataset100.txt"
        tamanio_archivo= 100  
     elif dic['tam_dataset'] == 500:
-        archivo="tratamiento_datasets\dataset500.txt"
+        archivo="tratamiento_datasets/dataset500.txt"
         tamanio_archivo= 500  
     else:
-        archivo="tratamiento_datasets\dataset1000.txt"  
+        archivo="tratamiento_datasets/dataset1000.txt"  
         tamanio_archivo= 1000  
 
   

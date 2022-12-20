@@ -24,7 +24,7 @@ frameFStyles={
 }
 
 titlePatronSeleccionadoStyles={
-    "coordenadaX": 230,
+    "coordenadaX": 220,
     "coordenadaY": 50
 }
 frameSeleccionado={
@@ -33,11 +33,11 @@ frameSeleccionado={
 }
 
 titlePatronDistorsionadoStyles={
-    "coordenadaX": 700,
+    "coordenadaX": 550,
     "coordenadaY": 50
 }
 frameDistorsionado={
-    "coordenadaX": 700,
+    "coordenadaX": 550,
     "coordenadaY": 120
 }
 
@@ -175,20 +175,20 @@ botonSeleccionPatronStyles={
 ##Fin Pantalla Seleccion Patron
 
 botonGetClassPatronStyles={
-    "coordenadaX": 450,
-    "coordenadaY": 345,
-    "width": 15,
-    "height": 2,
+    "coordenadaX": 600,
+    "coordenadaY": 400,
+    "width": 12,
+    "height": 1,
     "bg": primaryColor["color"]
 }
 
 textResultadoStyles={
-    "coordenadaX": 220,
-    "coordenadaY": 430
+    "coordenadaX": 920,
+    "coordenadaY": 50
 }
 textResultadoObtenidoStyles={
-    "coordenadaX": 400,
-    "coordenadaY": 430,
+    "coordenadaX": 50,
+    "coordenadaY": 30,
     "color": primaryColor["color"]
 }
 

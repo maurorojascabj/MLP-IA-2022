@@ -80,7 +80,8 @@ class SeleccionPatron():
     
     def redirectPantalla(self, patron, distorsion):
         if(patron in [1, 2, 3]):
-            self.frameContenedor.destroy()
-            resultado = Resultado(self.window, patron, distorsion, self.red)
+            pantallaPatron = self.frameContenedor
+            self.frameContenedor.hideFrame()
+            resultado = Resultado(self.window, patron, distorsion, self.red, pantallaPatron)
         else:
             self.modalWarning = Dialog("warning", "¡Cuidado!", "Debe seleccionar un patrón")
