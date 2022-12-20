@@ -37,7 +37,6 @@ title.setLocation(titleMainStyles["coordenadaX"], titleMainStyles["coordenadaY"]
 
 inicio = Inicio(window)
 
-window.resizable(0,0)
 window.title("Perceptrón multicapa")
-window.geometry("1500x750")
+window.geometry("1200x600")
 window.mainloop()
